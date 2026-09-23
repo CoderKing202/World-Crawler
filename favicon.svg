@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 50 156 156" width="600" height="600">
+  <defs>
+    <radialGradient id="earth" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#4fc3ff"/>
+      <stop offset="45%" stop-color="#0877d1"/>
+      <stop offset="100%" stop-color="#003b8f"/>
+    </radialGradient>
+    <linearGradient id="orbit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#66e7ff"/>
+      <stop offset="100%" stop-color="#008cff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Globe -->
+  <circle cx="128" cy="128" r="82" fill="url(#earth)" stroke="#38cfff" stroke-width="3"/>
+
+  <!-- Simplified continents -->
+  <path d="M78 62 C62 72 55 88 61 104 L76 111 L83 99 L96 91 L91 77 L101 68 L94 57 Z"
+        fill="#5dbb4b"/>
+  <path d="M101 111 L91 121 L96 139 L104 151 L109 177 L118 193 L126 180 L123 161 L116 147 L120 132 Z"
+        fill="#55b64a"/>
+  <path d="M143 69 L158 60 L176 66 L184 80 L176 91 L165 88 L158 97 L145 92 Z"
+        fill="#71c84f"/>
+  <path d="M151 99 L169 94 L184 101 L191 116 L181 128 L174 144 L163 153 L154 142 L146 126 Z"
+        fill="#63b84b"/>
+  <path d="M186 147 L195 154 L192 166 L184 171 L178 161 Z"
+        fill="#69bd4d"/>
+
+  <!-- Cloud bands -->
+  <path d="M55 116 C82 103 103 108 126 118 S172 132 201 119"
+        fill="none" stroke="#d9f5ff" stroke-width="5" opacity=".7"/>
+  <path d="M59 155 C88 143 111 151 135 160 S174 174 197 157"
+        fill="none" stroke="#cceeff" stroke-width="4" opacity=".55"/>
+
+  <!-- Orbit -->
+  <ellipse cx="128" cy="128" rx="108" ry="43"
+           fill="none" stroke="url(#orbit)" stroke-width="5"
+           transform="rotate(18 128 128)" filter="url(#glow)"/>
+  <circle cx="225" cy="126" r="7" fill="#eaffff" stroke="#52dfff" stroke-width="3"/>
+
+  <!-- Atmospheric highlight -->
+  <circle cx="128" cy="128" r="82" fill="none" stroke="#7de9ff" stroke-width="2" opacity=".65"/>
+</svg>
