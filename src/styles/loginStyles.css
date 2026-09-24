@@ -1,0 +1,87 @@
+
+#loginDiv{
+    /* parent box     */
+   width: 100vw;
+   height: 100vh;
+   margin: auto;
+   display: flex;
+   /* border: 2px solid red;  */
+   align-items:center;
+   justify-content: center;
+}
+
+#formDiv{
+    /* field controller div */
+    margin-top: 35px;
+    /* border: 2px solid red; */
+    display: flex;
+    
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#formDiv input{
+    /* all the inputs in the form */
+    border-radius: 20px;
+    width: 400px;
+    height: 70px;
+    font-size: 30px;
+}
+
+#loginForm{
+    /* form box controller */
+    display: flex;
+    align-items:start;
+    justify-content: center;
+    
+    width: 600px;
+    height: 620px;
+    border-radius: 10%;
+    border: 2px solid black;
+    background-color: #F8DDEB;
+}
+
+#logoImg{
+    /*website logo in login form*/
+    height: 200px;
+    width: 220px;
+}
+
+#loginButton{
+    /* login button*/
+    height: 50px;
+
+    width: 150px;
+    font-size: larger;
+    font-weight: bolder;
+    background-color: #5B9FE3;
+    cursor: pointer;
+}
+
+@media (max-width:720px) {
+    #loginForm{
+    border-radius: 40px;
+    width: 300px;
+    height: 475px;
+}
+#logoImg{
+    /*website logo in login form*/
+    height: 100px;
+    width: 120px;
+}
+#formDiv input{
+    /* all the inputs in the form */
+    border-radius: 20px;
+    width: 200px;
+    height: 50px;
+    font-size: 17px;
+}
+
+}
+
+a{
+  text-decoration: none;
+}
