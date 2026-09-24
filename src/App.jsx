@@ -6,8 +6,10 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Reels from "./components/Reels";
 import Search from "./components/Search";
+
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+
 import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
