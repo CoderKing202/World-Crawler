@@ -2,18 +2,38 @@ import React from 'react'
 import "../styles/loginStyles.css"
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-function Login() {
+function Login({setLoading}) {
   const [credentials,setCredentials] = useState({
     email:"",
     password:""
   })
+  const navigate = useNavigate()
   // const [passwordStrength,setPasswordStrength] = useState({
   //   color:"red",
   //   message:"Weak password"
   // })
-  const formSubmit=(e)=>{
+  const formSubmit=async (e)=>{
     e.preventDefault()
+    const formData = new FormData()
+    formData.append("email",credentials.email)
+    formData.append("password",credentials.password)
+    // sending login request
+    setLoading(true)
+    const response = await fetch("http://localhost:5000/users/login",{
+      method:"POST",
+      body:formData,
+      credentials:"include"  
+    })
+    const result = await response.json()
+    
+    if(result.success == true){
+// if response is successfull then we will get it
+      navigate("/")
+      console.log("hello")
+      setLoading(false)
+    }
   }
   const onChangeHandler = (e)=>{
       setCredentials((state)=>{

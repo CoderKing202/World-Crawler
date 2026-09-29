@@ -1,5 +1,5 @@
 
-#loginDiv{
+#signUpDiv{
     /* parent box     */
    width: 100vw;
    height: 100vh;
@@ -8,6 +8,23 @@
    /* border: 2px solid red;  */
    align-items:center;
    justify-content: center;
+   position: relative;
+}
+
+#messageBox{
+    /* message box for error messages and showing password strength*/
+    background-color: aquamarine;
+    height: 100px;
+    width: 300px;
+    top: 30px;
+    position:absolute;
+    z-index: 3;
+    
+}
+#closeBtn{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
 }
 
 #formDiv{
@@ -31,7 +48,7 @@
     font-size: 30px;
 }
 
-#loginForm{
+#signUpForm{
     /* form box controller */
     display: flex;
     align-items:start;
@@ -45,42 +62,24 @@
 }
 
 #logoImg{
-    /*website logo in login form*/
+    /*website logo in signUp form*/
     height: 130px;
     width: 150px;
 }
 
-#loginButton{
-    /* login button*/
+.signUpButton{
+    /* signUp button or Next button*/
     height: 50px;
 
     width: 150px;
     font-size: larger;
     font-weight: bolder;
     background-color: #5B9FE3;
-    cursor: pointer;
+    cursor: pointer !important;
+    border: 2px solid #5B9FE3;
 }
 
-@media (max-width:720px) {
-    #loginForm{
-    border-radius: 40px;
-    width: 300px;
-    height: 535px;
-}
-#logoImg{
-    /*website logo in login form*/
-    height: 100px;
-    width: 120px;
-}
-#formDiv input{
-    /* all the inputs in the form */
-    border-radius: 20px;
-    width: 200px;
-    height: 50px;
-    font-size: 17px;
-}
 
-}
 
 a{
   text-decoration: none;
@@ -104,6 +103,7 @@ font-size: 30px;
     height: 100%;
 }
 #userImg{
+    /*profile image in signUp form*/
     height: 200px;
     border: 2px solid black;
     width: 200px;
@@ -133,4 +133,47 @@ font-size: 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+#message{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top:40px;
+}
+@media (max-width:720px) {
+    #signUpForm{
+    border-radius: 40px;
+    width: 300px;
+    height: 535px;
+}
+#logoImg{
+    /*website logo in signUp form*/
+    height: 100px;
+    width: 120px;
+}
+#formDiv input{
+    /* all the inputs in the form */
+    border-radius: 20px;
+    width: 200px;
+    height: 50px;
+    font-size: 17px;
+}
+
+#bioText{
+    border-radius: 15px;
+    border: 2px solid black;
+    font-size: 20px;
+    height: 130px;
+    width: 250px;
+}
+#userImg{
+    /*profile image in signUp form*/
+    height: 140px;
+    width: 140px;
+}
+}
+
+#buttonBox{
+    display: flex;
+    justify-content: center;
 }

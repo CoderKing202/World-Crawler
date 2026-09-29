@@ -64,6 +64,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
 }
 
 #userDemoImg {
@@ -122,6 +123,7 @@ header {
 #website_logo{
    height:70px
 }
+
 @media (max-width:370px){
 #notification_img{
   height: 45px;
@@ -130,6 +132,7 @@ header {
 #userDemoImg{
    height:35px;
 }
+
 #dropDownImg{
   height:45px;
   width:60px; 
@@ -143,3 +146,4 @@ header {
    height:45px
 }
 }
+
