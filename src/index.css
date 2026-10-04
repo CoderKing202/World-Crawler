@@ -7,10 +7,12 @@
 }
 body {
   margin: 0;
+  overflow: hidden;/*so that when child pass the parent then after oarent boundary will not be visible such that no scroll bar will be added*/
 }
 
+
 #menu {
-  background-color :brown;
+  background-color: brown;
   height: 73px;
   width: 600px;
   display: flex;
@@ -22,43 +24,48 @@ body {
   transform: translateX(-50%);
 }
 
-
-@media (max-width:1023px){
-    #menu {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  position: fixed;
-  bottom: 0px;
-  left: 50%;
-  width: 100%;
-  background-color: brown;
-  transform: translateX(-50%);
-}
+@media (max-width: 1023px) {
+  #menu {
+    display: flex;
+    /* flex: 1; */
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+    left: 49.9%;
+    /* right: 100%; */
+    width: 100%;
+    background-color: brown;
+    transform: translateX(-50%);
+  }
 }
 
 #menu a {
   text-decoration: none;
   font-size: 50px;
   text-align: center;
-  
+
   flex: 1;
+
   /* border: 2px solid red; */
   background-color: brown;
   /* padding: 20px 20px 20px 20px; */
   color: yellow;
 }
-@media(max-width:480px){
-#menu a{
-  font-size: 30px;
-  
+@media (max-width: 480px) {
+  #menu a {
+    font-size: 30px;
+  }
 }
-}
-#menu > :nth-child(1),
+/* #menu > :nth-child(1),
 #menu > :nth-child(2),
-#menu > :nth-child(3) {
+#menu > :nth-child(3), */
+#menu > :not(:last-child) {
   border-right: 2px solid red;
 }
+#manu > :last-child {
+  border-right: none;
+}
+
 header {
   position: fixed;
   top: 0;
@@ -90,60 +97,69 @@ header {
   font-size: 50px;
   color: yellow;
 }
-#userSelection {
+#userSelectionOrLogout {
   position: relative;
   margin-left: auto;
   display: flex;
   align-items: center;
-  
 }
 #userDropDown a:nth-child(2) {
   border-top: 2px solid black;
 }
 
-#search_img{
+#search_img {
   cursor: pointer;
 }
-#notification_img{
+#notification_img {
   height: 70px;
 }
 
-#userDemoImg{
-   height:60px;
+#userDemoImg {
+  height: 60px;
 }
-#dropDownImg{
-  height:70px;
-  width:60px; 
-}
-
-#search_img{
-  height:70px
+#dropDownImg {
+  height: 70px;
+  width: 60px;
 }
 
-#website_logo{
-   height:70px
+#search_img {
+  height: 70px;
 }
 
-@media (max-width:370px){
-#notification_img{
-  height: 45px;
+#website_logo {
+  height: 70px;
 }
 
-#userDemoImg{
-   height:35px;
+@media (max-width: 370px) {
+  #notification_img {
+    height: 45px;
+  }
+
+  #userDemoImg {
+    height: 35px;
+  }
+
+  #dropDownImg {
+    height: 45px;
+    width: 60px;
+  }
+
+  #search_img {
+    height: 45px;
+  }
+
+  #website_logo {
+    height: 45px;
+  }
 }
 
-#dropDownImg{
-  height:45px;
-  width:60px; 
+#logout {
+  width: 110px;
+  height: 50px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: bolder;
+  color: yellow;
+  background-color: brown;
+  /* border:brown; */
 }
-
-#search_img{
-  height:45px
-}
-
-#website_logo{
-   height:45px
-}
-}
-

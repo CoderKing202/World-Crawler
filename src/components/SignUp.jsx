@@ -5,9 +5,17 @@ import { Link } from "react-router-dom";
 import NormalSignUp from "./NormalSignUp";
 import ProfileSignUp from "./ProfileSignUp";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-function SignUp({ setLoading }) {
+function SignUp({ setLoading,isLogin }) {
   const navigate = useNavigate();
+  useEffect(() => {
+    /** it is so that is not logged out user or user who don't have an account can access these components */
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin]);
+
   const [level, setLevel] = useState(1);
   const [imageUrl, setImageUrl] = useState(null);
   const [credentials, setCredentials] = useState({
@@ -58,12 +66,12 @@ function SignUp({ setLoading }) {
         formData.append("profileImageFile", profileImageFile);
       }
       setLoading(true);
-      const response = await fetch("http://localhost:5000/users/signup", {
+      const response = await fetch("http://localhost:5000/user/signup", {
         method: "POST",
         body: formData,
         credentials: "include",
       });
-      
+
       const result = await response.json();
       if (result.success == true) {
         setLoading(false);

@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../styles/loginStyles.css"
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-function Login({setLoading}) {
+function Login({setLoading,isLogin}) {
+  const navigate = useNavigate()
+      useEffect(()=>{
+        /** it is so that is not logged out user or user who don't have an account can access these components */
+        console.log(isLogin)
+        if(isLogin){
+          
+          navigate("/")
+        }
+      },[isLogin])
   const [credentials,setCredentials] = useState({
     email:"",
     password:""
   })
-  const navigate = useNavigate()
+  
   // const [passwordStrength,setPasswordStrength] = useState({
   //   color:"red",
   //   message:"Weak password"
@@ -21,7 +30,7 @@ function Login({setLoading}) {
     formData.append("password",credentials.password)
     // sending login request
     setLoading(true)
-    const response = await fetch("http://localhost:5000/users/login",{
+    const response = await fetch("http://localhost:5000/user/login",{
       method:"POST",
       body:formData,
       credentials:"include"  
@@ -55,11 +64,12 @@ function Login({setLoading}) {
       
       <input id="password" name="password" type="password" value={credentials.password} placeholder='Enter your password here'  required
       onChange={onChangeHandler}
+      autoComplete='new-password'
       />
       {/* {credentials.password?<span style={{color:passwordStrength.color}}>{passwordStrength.message}</span>:<></>} */}
       <button type="submit" id="loginButton">Login</button>
       <span>Don't have an account<Link to={`/signup`} style={{color:"blue",fontSize:"20px"}}> SignUp</Link></span>
-      <Link style={{color:"red",fontSize:"20px"}}to={`/forgotPassword`}>Forgot Password?</Link>
+      {/* <Link style={{color:"red",fontSize:"20px"}}to={`/forgotPassword`}>Forgot Password?</Link> */}
 </div>
       </form>
     

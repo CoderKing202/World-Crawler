@@ -1,0 +1,130 @@
+#extraSpace{
+  display: none;
+}
+#hamburgerPhoneMenuId {
+  display: none;
+}
+#extraSpace{
+  height: 125px;;
+  width:100%;
+  background-color: aqua;
+}
+
+.phonesideMenuFriendsClass {
+  display: none;
+  background-color: #f8fafc;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  height: 100%;
+  width: 280px;
+  transition: transform 0.3s ease;
+}
+.phonesideMenuFriendsClass#hidephonesideMenuFriends {
+  transform: translateX(-100%);
+}
+#messageBox {
+  background-color: #f8e1e7;
+  padding-top: 75px;
+  height: 100vh;
+  width: 100vw;
+  
+}
+
+.hamburgerPhoneMenu {
+  display: none;
+}
+
+#messagePCBox {
+  display: flex;
+  border: 2px solid red;
+  height: 100vh;
+}
+#messages {
+  flex: 3;
+  
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#friends {
+  flex: 1;
+  height: 100%;
+  background-color: #f8fafc;
+  padding-bottom: 73px;
+}
+#closeButton {
+  height: 25px;
+  margin-top: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+#closeButtonBox {
+  position: absolute;
+  left: 90%;
+}
+.hideHamburgerPhoneMenu {
+  display: none;
+}
+.hamburgerPhoneMenu {
+  display: block;
+  position: fixed;
+  background-color: red;
+  /* padding: 1px; */
+  padding-left: 9px;
+  padding-right: 9px;
+  font-size: 50px;
+  left: 8px;
+  border-radius: 10px;
+  top: 85px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+#chatBox{
+  flex: 1;
+}
+
+@media (max-width: 1023px) {
+  
+  #friends {
+    display: none;
+  }
+  .hamburgerPhoneMenu {
+    display: block;
+    position: fixed;
+    background-color: red;
+    /* padding: 1px; */
+    padding-left: 9px;
+    padding-right: 9px;
+    font-size: 50px;
+    left: 8px;
+    border-radius: 10px;
+    top: 85px;
+    cursor: pointer;
+    z-index: 5;
+  }
+  .phonesideMenuFriendsClass {
+    display: flex;
+  }
+  .phonesideMenuFriendsClass#showphonesideMenuFriends {
+    transform: translateX(0);
+  }
+  #hamburgerPhoneMenuId {
+    display: flex;
+  }
+  
+}
+@media (max-width: 370px) {
+  .hamburgerPhoneMenu {
+    left: 8px;
+    top: 60px;
+  }
+  #messageBox {
+  padding-top: 52px;
+  
+}
+
+}

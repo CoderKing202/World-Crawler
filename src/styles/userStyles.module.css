@@ -1,0 +1,263 @@
+#userContent {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f8e1e7;
+  padding-top: 80px;
+  overflow: auto; /*so that if the child overflows the parent boundaty then a scrollbar is automatically added*/
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-direction: column;
+}
+/* *{
+    border: 2px solid red;
+} */
+
+#userInfoBox {
+  height: 37vh;
+  width: 80vw;
+  /* background-color: brown; */
+  display: flex;
+  /*So we can divide the upper box into two zones, one is left and another is right*/
+}
+
+#userInfoBoxLeft {
+  /* border: 2px solid yellow; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: end;
+  padding-top: 30px;
+  gap: 20px;
+  flex: 1;
+}
+#userInfoBoxRight {
+  /* border: 2px solid yellow; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+#userImage {
+  background: url("/World-Crawler/defaultUserImage.jpg");
+  height: 300px;
+  width: 300px;
+  margin-right: 50px;
+  border-radius: 50%;
+  /* border: 2px solid red; */
+  flex-shrink: 0;
+  background-position: center;
+  background-size: 150%;
+}
+#postAndReelsBox {
+  height: 37vh;
+  /* margin-top: 15px; */
+  flex-shrink: 0;
+  width: 80vw;
+  border: 2px solid black;
+  /* background-color: brown; */
+  display: flex;
+  /*So we can divide the upper box into two zones, one is left and another is right*/
+}
+
+#contentInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+}
+/* post reels styles */
+#mediaInfo {
+  display: flex;
+}
+#postsInfo {
+  flex: 1;
+  /* border: 2px solid yellow; */
+}
+
+#reelsInfo {
+  flex: 1;
+  /* border: 2px solid yellow; */
+}
+/* post reels styles */
+
+#followInfo {
+  display: flex;
+
+  /* border: 2px solid yellow; */
+}
+
+#followersInfo {
+  flex: 1;
+  /* border: 2px solid yellow; */
+}
+#followingInfo {
+  flex: 1;
+  /* border: 2px solid yellow; */
+}
+
+#buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 30px;
+}
+
+#buttons button {
+  cursor: pointer;
+  background-color: #e91e63;
+}
+
+#followButton {
+  height: 50px;
+  border-radius: 10px;
+
+  width: 150px;
+  font-size: 40px;
+  border: #e91e63;
+}
+
+#messageButton {
+  height: 50px;
+  border-radius: 10px;
+
+  width: 200px;
+  font-size: 40px;
+  border: #e91e63;
+}
+
+#username {
+  font-size: 50px;
+}
+
+#postAndReelsBox {
+  flex-direction: column;
+}
+
+#mediaTabs {
+  display: flex;
+  cursor: pointer;
+  height: 50px;
+  font-weight: bolder;
+}
+
+#postsTab {
+  flex: 1;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  background-color: #e91e63;
+  border: 2px solid #c2185b;
+
+  align-items: center;
+}
+#reelsTab {
+  display: flex;
+  border: 2px solid #c2185b;
+
+  justify-content: center;
+  align-items: center;
+  background-color: #e91e63;
+  flex: 1;
+}
+#bioBox {
+  /* border: 2px solid red; */
+  margin-top: -52px;
+  /* width: 38vw; */
+  width: 712px;
+  display: flex;
+  /* margin-right: 65px; */
+  /* justify-content: center; */
+  font-size: 30px;
+}
+
+
+
+@media (max-width: 867px) {
+  #userInfoBox {
+    height: 30vh;
+    width: 80vw;
+  }
+
+  #bioBox {
+    /* border: 2px solid red; */
+    width: 312px;
+
+  }
+  #userImage {
+    height: 110px;
+    width: 110px;
+    margin-right: 0px;
+  }
+  #contentInfo {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+  }
+
+  #buttons {
+    margin-top: 0px;
+
+    gap: 10px;
+  }
+
+  #buttons button {
+    cursor: pointer;
+    background-color: #e91e63;
+  }
+
+  #followButton {
+    height: 30px;
+    border-radius: 10px;
+
+    width: 80px;
+    font-size: 20px;
+  }
+
+  #messageButton {
+    height: 30px;
+
+    width: 100px;
+    font-size: 20px;
+  }
+
+  #username {
+    font-size: 20px;
+  }
+  #userContent {
+    padding-top: 10px;
+    gap: 15px;
+  }
+  #bioBox {
+    font-size: 14px;
+  }
+   #userInfoBoxRight {
+    gap: 10px;
+  }
+    #userInfoBoxLeft {
+  padding-top: 0px;
+  margin-right: 10px;
+}
+  #bioBox {
+    /* border: 2px solid red; */
+    margin-top: -67px;
+    width: 200px;
+  }
+  
+}
+@media (max-width: 730px) {
+#bioBox {
+    /* border: 2px solid red; */
+    margin-top: -123px;
+    width: 230px;
+  }
+}
+@media (max-width: 414px) {
+
+ #bioBox {
+    /* border: 2px solid red; */
+    margin-top: -67px;
+    width: 80vw;
+  }
+
+}

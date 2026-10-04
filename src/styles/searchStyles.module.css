@@ -1,0 +1,84 @@
+#userSearchSection {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f8e1e7;
+  padding-top: 90px;
+  overflow: auto; /*so that if the child overflows the parent boundaty then a scrollbar is automatically added*/
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-direction: column;
+}
+
+#engagementContents {
+  height: 100px;
+  width: 90vw;
+  border: 2px solid red;
+}
+
+#searchDiv {
+  /* border: 2px solid green; */
+  position: relative;
+  display: flex;
+  height: 50px;
+  width: 60vw;
+  flex-direction: column;
+}
+/* #searchForm {
+  border: 2px solid red;
+} */
+#closeButton {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-60%);
+  cursor: pointer;
+}
+#searchField {
+  flex: 1;
+  font-size: 30px;
+}
+
+#suggestions {
+  flex: 1;
+  /* height: 30px; */
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#suggestions>.suggestion:not(:last-child){
+border-bottom: 1px solid black;
+}
+#suggestions .suggestion {
+  font-size: 30px;
+  background-color: white;
+  cursor: pointer;
+
+}
+@media (max-width: 760px) {
+  #searchField {
+    font-size: 25px;
+  }
+  #searchDiv {
+    border: 2px solid green;
+    position: relative;
+    display: flex;
+    height: 50px;
+    width: 90vw;
+  }
+  #userSearchSection {
+    padding-top: 90px;
+  }
+  #closeButton {
+    transform: translateY(-70%);
+  }
+}
+
+@media (max-width: 370px) {
+  #userSearchSection {
+    padding-top: 70px;
+  }
+}

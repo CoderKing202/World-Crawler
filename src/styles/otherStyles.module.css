@@ -1,0 +1,42 @@
+#notificationBell{
+    position: relative;
+}
+#notification{
+    position: absolute;
+    height: 23px;
+    width: 23px;
+    background-color: #FF3B30;
+    border-radius: 30px;
+    right: 15px;
+    top:2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-weight: bolder;
+    cursor: pointer;
+}
+#notification_img{
+  height: 70px;
+}
+@media(max-width:370px){
+ #notification{
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    background-color: #FF3B30;
+    border-radius: 30px;
+    right: 8px;
+    top:2px;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-weight: bolder;
+    cursor: pointer;
+}
+#notification_img{
+  height: 45px;
+}   
+}
