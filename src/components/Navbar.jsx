@@ -30,6 +30,7 @@ function Navbar({ isLogin, setLogin, setLoading }) {
   return (
     <>
       <div>
+       
         <header>
           <nav className="navbar">
             <div id="logo">

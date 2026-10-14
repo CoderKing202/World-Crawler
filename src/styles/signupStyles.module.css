@@ -70,7 +70,6 @@
 .signUpButton{
     /* signUp button or Next button*/
     height: 50px;
-
     width: 150px;
     font-size: larger;
     font-weight: bolder;
@@ -78,7 +77,6 @@
     cursor: pointer !important;
     border: 2px solid #5B9FE3;
 }
-
 
 
 a{

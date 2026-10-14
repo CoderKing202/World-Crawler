@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import userStyles from "../styles/userStyles.module.css";
+import userStyles from "../styles/profileStyles.module.css";
 import { useNavigate } from "react-router-dom";
 function User({ isLogin }) {
   const navigate = useNavigate();
@@ -13,6 +13,19 @@ function User({ isLogin }) {
 
   useEffect(() => {
     (async () => {
+      const isLoginResponse = await fetch(`http://localhost:5000/user/isLogin`,{
+        method:"POST",
+        credentials:"include"
+      })
+
+      const isLoginResult = await isLoginResponse.json()
+      console.log(isLoginResult)
+      if(isLoginResult.isLogin){
+        if(isLoginResult.username === username)
+        {
+          navigate("/profile")
+        }
+      }
       const response = await fetch(`http://localhost:5000/user/${username}`);
       const result = await response.json();
       if(result.success === true){

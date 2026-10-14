@@ -28,14 +28,15 @@ body {
   #menu {
     display: flex;
     /* flex: 1; */
-    justify-content: center;
+    /* justify-content: center; */
     position: fixed;
     bottom: 0px;
     left: 49.9%;
+    
     /* right: 100%; */
     width: 100%;
     background-color: brown;
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
   }
 }
 
@@ -51,18 +52,14 @@ body {
   /* padding: 20px 20px 20px 20px; */
   color: yellow;
 }
-@media (max-width: 480px) {
-  #menu a {
-    font-size: 30px;
-  }
-}
+
 /* #menu > :nth-child(1),
 #menu > :nth-child(2),
 #menu > :nth-child(3), */
 #menu > :not(:last-child) {
   border-right: 2px solid red;
 }
-#manu > :last-child {
+#menu > :last-child {
   border-right: none;
 }
 
@@ -129,7 +126,11 @@ header {
 #website_logo {
   height: 70px;
 }
-
+@media (max-width: 480px) {
+  #menu a {
+    font-size: 30px;
+  }
+}
 @media (max-width: 370px) {
   #notification_img {
     height: 45px;
