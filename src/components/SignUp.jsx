@@ -94,7 +94,7 @@ function SignUp({ setLoading,isLogin }) {
       });
     }
 
-    console.log(e.target.name);
+    //console.log(e.target.name);
   };
   const closeMessageBox = () => {
     setMessageVisible(false);

@@ -8,7 +8,7 @@ function Login({setLoading,isLogin}) {
   const navigate = useNavigate()
       useEffect(()=>{
         /** it is so that is not logged out user or user who don't have an account can access these components */
-        console.log(isLogin)
+        //console.log(isLogin)
         if(isLogin){
           
           navigate("/")
@@ -40,7 +40,7 @@ function Login({setLoading,isLogin}) {
     if(result.success == true){
 // if response is successfull then we will get it
       navigate("/")
-      console.log("hello")
+      //console.log("hello")
       setLoading(false)
     }
   }

@@ -2,34 +2,32 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import profileStyles from "../styles/profileStyles.module.css";
 import { useNavigate } from "react-router-dom";
+import UploadImageSection from "./uploadsComponents/UploadImageSection";
+import UploadVideoSection from "./uploadsComponents/UploadVideoSection";
+import UploadReelSection from "./uploadsComponents/UploadReelSection";
+import UpdateProfile from "./UpdateProfile";
+import Posts from "./PostsContent";
+import Reels from "./ReelsContent";
 
 function Profile() {
   const navigate = useNavigate();
-  const selectImage = () => {
-    ref.current.click();
-  };
-  const ref = useRef();
-  const [imageUrl, setImageUrl] = useState();
-  const [menu, setMenu] = useState("");
+  const [tab, setTab] = useState("posts");
+
+  // making states to handle content file object
+  const [menu, setMenu] = useState({ type: "", tab: "" });
   const [username, setUserName] = useState("");
   const [userDetails, setUserDetails] = useState({ user: {}, success: false });
-  console.log(username);
+  //console.log(username);
   const message = () => {
     navigate(`/messages/${username}`);
   };
-  const openOperationWindow = (option) => {
-    setMenu(option);
+  const openOperationWindow = (option, tab = "image") => {
+    setMenu({ type: option, tab });
   };
   const closePanel = () => {
     setMenu("");
   };
-  const handleImageChange = (e) => {
-    const files = e.target.files;
-    const selectedImage = files[0];
-    const url = URL.createObjectURL(selectedImage);
-    setImageUrl(url);
-    // onChangeHandler(e);
-  };
+
   useEffect(() => {
     (async () => {
       const isLoginResponse = await fetch(
@@ -49,16 +47,17 @@ function Profile() {
       );
       const result = await response.json();
       if (result.success === true) {
+        console.log(result);
         setUserDetails(result);
       }
 
-      // console.log(result)
-      // console.log(result.user.profileImage)
+      console.log(result)
+      //console.log(result.user.profileImage)
     })();
   }, []);
-  console.log(
-    new URL("http:/localhost:5000/media/image/123", location.href).href,
-  );
+  //console.log(
+  //   new URL("http:/localhost:5000/media/image/123", location.href).href,
+  // );
   return (
     <div
       id={profileStyles.userContent}
@@ -74,51 +73,21 @@ function Profile() {
             }
       }
     >
-      {menu && (
+      {menu.type && (
         <div className={profileStyles.menuBackground}>
-          {menu === "editProfile" ? (
-            <form
-              className={profileStyles.panel}
-              id={profileStyles.editProfilePanel}
-            >
-              <img
-                src="/World-Crawler/closeBtn.png"
-                alt="close window image"
-                id={profileStyles.closeButton}
-                onClick={closePanel}
+          {menu.type === "editProfile" ? (
+            <>
+              <UpdateProfile
+                closePanel={closePanel}
+                userDetails={userDetails}
+                setUserDetails={setUserDetails}
               />
-
-              <input
-                type="file"
-                onChange={handleImageChange}
-                ref={ref}
-                name="profileImage"
-                id={profileStyles.profileImageUpload}
-                accept="image/*"
-              />
-              <div id={profileStyles.imageUploaderBox} onClick={selectImage}>
-                <div
-                  id={profileStyles.userImg}
-                  style={
-                    imageUrl ? { backgroundImage: `url(${imageUrl})` } : {}
-                  }
-                ></div>
-                <span>Click to Update Profile Pic</span>
-              </div>
-
-              <input
-                type="text"
-                required
-                placeholder="Update your Username here"
-              />
-              <textarea required placeholder="Update your Bio here"></textarea>
-              <button>Update Profile</button>
-            </form>
+            </>
           ) : (
             <></>
           )}
-          {menu === "uploadPosts" ? (
-            <form
+          {menu.type === "uploadPosts" ? (
+            <div
               className={profileStyles.panel}
               id={profileStyles.uploadPostPanel}
             >
@@ -130,17 +99,45 @@ function Profile() {
               />
               <div id={profileStyles.uploadPost}>
                 <div id={profileStyles.uploadMediaBar}>
-                  <div id={profileStyles.uploadImageTab}>Image</div>
-                  <div id={profileStyles.uploadVideoTab}>Video</div>
+                  <div
+                    id={profileStyles.uploadImageTab}
+                    onClick={() => {
+                      openOperationWindow("uploadPosts", "image");
+                    }}
+                  >
+                    Image
+                  </div>
+                  <div
+                    id={profileStyles.uploadVideoTab}
+                    onClick={() => {
+                      openOperationWindow("uploadPosts", "video");
+                    }}
+                  >
+                    Video
+                  </div>
                 </div>
-                <div id={profileStyles.UploadPostSection}>Hello</div>
+
+                {menu.tab === "image" ? (
+                  <div id={profileStyles.UploadPostSection}>
+                    <UploadImageSection closePanel={closePanel} />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {menu.tab === "video" ? (
+                  <div id={profileStyles.UploadPostSection}>
+                    <UploadVideoSection closePanel={closePanel} />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
-            </form>
+            </div>
           ) : (
             <></>
           )}
-          {menu === "uploadReels" ? (
-            <form
+          {menu.type === "uploadReels" ? (
+            <div
               className={profileStyles.panel}
               id={profileStyles.uploadReelPanel}
             >
@@ -150,7 +147,8 @@ function Profile() {
                 id={profileStyles.closeButton}
                 onClick={closePanel}
               />
-            </form>
+              <UploadReelSection closePanel={closePanel} />
+            </div>
           ) : (
             <></>
           )}
@@ -226,10 +224,16 @@ function Profile() {
         </div>
         <div id={profileStyles.postAndReelsBox}>
           <div id={profileStyles.mediaTabs}>
-            <div id={profileStyles.postsTab}>Posts</div>
-            <div id={profileStyles.reelsTab}>Reels</div>
+            <div id={profileStyles.postsTab} onClick={() => setTab("posts")}>
+              Posts
+            </div>
+            <div id={profileStyles.reelsTab} onClick={() => setTab("reels")}>
+              Reels
+            </div>
           </div>
-          <div id={profileStyles.mediaData}>Posts/Reels</div>
+          <div id={profileStyles.mediaData}>
+            {tab === "posts" ? <Posts /> : <Reels />}
+          </div>
         </div>
       </>
     </div>

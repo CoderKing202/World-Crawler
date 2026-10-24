@@ -18,10 +18,10 @@ function Conversations({username}) {
         credentials:"include"
       });
       const result = await response.json();
-      console.log(result)
+      //console.log(result)
       if (result.success) {
         setConversationList(result.receivers);
-        console.log(result.receivers)
+        //console.log(result.receivers)
       }
     })();
   }, []);

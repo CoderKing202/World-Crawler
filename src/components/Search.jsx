@@ -14,7 +14,7 @@ function Search({ isLogin }) {
       );
       const result = await response.json();
       if (result.success === true) {
-        // console.log(result.userList);
+        // //console.log(result.userList);
         setSuggestions(result.userList);
       }
     } else {
@@ -23,7 +23,7 @@ function Search({ isLogin }) {
   };
 
   const suggestionClickHandle = (e, username) => {
-    // console.log(username);
+    // //console.log(username);
     navigate(`/user/${username}`);
   };
 
@@ -50,7 +50,7 @@ function Search({ isLogin }) {
         {suggestions.length != 0 ? (
           <div id={searchStyles.suggestions}>
             {suggestions.map((username) => {
-              // console.log(username);
+              // //console.log(username);
               return (
                 <div
                   key={username}

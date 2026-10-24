@@ -22,9 +22,9 @@ function Navbar({ isLogin, setLogin, setLoading }) {
       method: "POST",
       credentials: "include",
     });
-    console.log("hello")
+    //console.log("hello")
     setLoading(false);
-    // navigate("/")
+    navigate("/")
     setLogin(false)
   };
   return (

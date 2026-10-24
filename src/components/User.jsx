@@ -6,7 +6,7 @@ function User({ isLogin }) {
   const navigate = useNavigate();
   const { username } = useParams();
   const [userDetails, setUserDetails] = useState({user:{},success:false});
-  console.log(username);
+  //console.log(username);
   const message = () => {
     navigate(`/messages/${username}`);
   };
@@ -19,7 +19,7 @@ function User({ isLogin }) {
       })
 
       const isLoginResult = await isLoginResponse.json()
-      console.log(isLoginResult)
+      //console.log(isLoginResult)
       if(isLoginResult.isLogin){
         if(isLoginResult.username === username)
         {
@@ -31,12 +31,12 @@ function User({ isLogin }) {
       if(result.success === true){
         setUserDetails(result);
       }
-      console.log(result)
-      // console.log(result.user.profileImage)
+      //console.log(result)
+      // //console.log(result.user.profileImage)
       
     })();
   }, [username]);
-  console.log(new URL("http:/localhost:5000/media/image/123", location.href).href)
+  //console.log(new URL("http:/localhost:5000/media/image/123", location.href).href)
   return (
     <div id={userStyles.userContent} style={userDetails.success?{}:{
       justifyContent:"center",

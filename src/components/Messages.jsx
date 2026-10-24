@@ -24,7 +24,7 @@ function Messages({ isLogin }) {
     socket.on("newMessage", (newMessage) => {
       setChats((previousChat) => [...previousChat, newMessage]);
     });
-    console.log("run");
+    //console.log("run");
     return () => {
       socket.off("newMessage");
       socket.disconnect();
@@ -37,7 +37,7 @@ function Messages({ isLogin }) {
         credentials: "include",
       });
       const result = await response.json();
-      console.log(result.isLogin);
+      //console.log(result.isLogin);
       if (!result.isLogin) {
         navigate("/");
       }
@@ -45,7 +45,7 @@ function Messages({ isLogin }) {
   }, [isLogin]);
   useEffect(() => {
     (async () => {
-      console.log(`http://localhost:5000/messages/${username}`);
+      //console.log(`http://localhost:5000/messages/${username}`);
       const response = await fetch(
         `http://localhost:5000/messages/${username}`,
         {
@@ -54,7 +54,7 @@ function Messages({ isLogin }) {
       );
       const result = await response.json();
       setChats(result.messages);
-      console.log(result);
+      //console.log(result);
     })();
   }, [username]);
   useEffect(() => {

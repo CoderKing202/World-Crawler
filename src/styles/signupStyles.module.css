@@ -136,8 +136,11 @@ font-size: 30px;
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    top:40px;
+    
+    
 }
+
+
 @media (max-width:720px) {
     #signUpForm{
     border-radius: 40px;

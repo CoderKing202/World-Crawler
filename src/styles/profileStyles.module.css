@@ -1,3 +1,20 @@
+
+#mediaData{
+  overflow: auto;
+}
+
+#profileMessageBox{
+    /* message box for error messages and showing password strength*/
+    background-color:#E6E6E6;
+    height: 100px;
+    width: 300px;
+    position:absolute;
+    z-index: 3;
+    top:10px;
+    left:50%;
+    transform:translate(-50%);
+}
+
 /* styles for showing menu with dimmed forgeround */
 .menuBackground {
   position: fixed;
@@ -8,11 +25,73 @@
   top: 0px;
 }
 
-#profileImageUpload{
-    display: none;    
+#uploadImageSection,
+#uploadVideoSection,
+#uploadReelSection {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.preview {
+  height: 300px;
+  /* border: 2px solid red; */
+  width: 500px;
 }
 
-#uploadPost{
+.videoPreview {
+  height: 300px;
+  /* border: 2px solid red; */
+  width: 500px;
+  position: relative;
+}
+
+#video {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+#uploader {
+  display: none;
+}
+
+.uploadSection form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.uploadSection button {
+  background-color: #2563eb;
+  border: 2px solid #2563eb;
+  height: 50px;
+  width: 200px;
+  font-size: 25px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.uploadSection input{
+  height: 60px;
+  font-size: 30px;
+  width: 90%;
+}
+
+
+.uploadSection button:first-of-type {
+  width: 300px;
+}
+
+#profileImageUpload {
+  display: none;
+}
+
+#uploadPost {
   width: 100%;
   height: 100%;
   background-color: red;
@@ -25,29 +104,31 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 70vw;  
+  width: 70vw;
 }
 
-#editProfilePanel{
-   padding: 30px;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%,-50%);
+#editProfilePanel {
+  padding: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
- #uploadPostPanel, #uploadReelPanel {
+#uploadPostPanel,
+#uploadReelPanel {
   /* padding: 30px; */
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%,-50%);
- }
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
- #uploadMediaBar{
-    height: 50px;
-    width: 70vw;
-    background-color: #e91e63;
-    display: flex;
- }
- #uploadImageTab, #uploadVideoTab{
+#uploadMediaBar {
+  height: 50px;
+  width: 70vw;
+  background-color: #e91e63;
+  display: flex;
+}
+#uploadImageTab,
+#uploadVideoTab {
   display: flex;
   flex: 1;
   justify-content: center;
@@ -56,50 +137,48 @@
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
- }
- #UploadPostSection{
+  cursor: pointer;
+}
+#UploadPostSection {
   background-color: #ffffff;
- }
-
-
-#editProfilePanel input{
-height: 50px;
-font-size: 30px;
-}
-#editProfilePanel textarea{
-height: 100px;
-font-size: 30px;
 }
 
-#editProfilePanel button{
-height: 50px;
-width: 130px;
-margin-inline: auto;
-cursor: pointer;
-background-color: #2563EB;
-font-size: 16px;
-font-weight: bolder;
+#editProfilePanel input {
+  height: 50px;
+  font-size: 30px;
+}
+#editProfilePanel textarea {
+  height: 100px;
+  font-size: 30px;
 }
 
-#userImg{
-    /*profile image in signUp form*/
-    height: 200px;
-    border: 2px solid black;
-    width: 200px;
-    background-image: url("/World-Crawler/defaultUserImage.jpg");
-    background-size: 150%;
-    background-position: center;
-    border-radius: 130px;
-
+#editProfilePanel button {
+  height: 50px;
+  width: 130px;
+  margin-inline: auto;
+  cursor: pointer;
+  background-color: #2563eb;
+  font-size: 16px;
+  font-weight: bolder;
 }
 
-#imageUploaderBox{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
+#userImg {
+  /*profile image in signUp form*/
+  height: 200px;
+  border: 2px solid black;
+  width: 200px;
+  background-image: url("/World-Crawler/defaultUserImage.jpg");
+  background-size: 150%;
+  background-position: center;
+  border-radius: 130px;
 }
 
+#imageUploaderBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
 
 #uploadReelsPanel {
 }
@@ -107,11 +186,11 @@ font-weight: bolder;
 #uploadPostsPanel {
 }
 
-#closeButton{
-  position:fixed;
+#closeButton {
+  position: fixed;
   height: 25px;
   width: 25px;
-  top:0;
+  top: 0;
   right: 0;
   cursor: pointer;
 }
@@ -400,6 +479,21 @@ font-weight: bolder;
     /* margin-top: -123px; */
     width: 230px;
   }
+  .uploadSection button:first-of-type {
+    width: 190px;
+    font-size: 18px;
+  }
+  .uploadSection button {
+    width: 160px;
+    font-size: 20px;
+  }
+  .preview {
+    width: 90%;
+  }
+
+  .videoPreview {
+    width: 90%;
+  }
 }
 @media (max-width: 414px) {
   #bioBox {
@@ -407,4 +501,5 @@ font-weight: bolder;
     /* margin-top: -67px; */
     width: 80vw;
   }
+  
 }

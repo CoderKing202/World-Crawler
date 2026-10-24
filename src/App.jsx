@@ -26,7 +26,7 @@ function App() {
         credentials: "include",
       });
       const result = await response.json();
-      console.log(result.isLogin);
+      //console.log(result.isLogin);
       setLogin(result.isLogin);
     })();
   });
