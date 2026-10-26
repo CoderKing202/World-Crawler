@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import profileStyles from "../../styles/profileStyles.module.css";
 import styles from "../../styles/signupStyles.module.css";
 
-function UploadImageSection(closePanel) {
-   const [uploadImageUrl, setUploadImageUrl] = useState("");
-  const [uploadImageContent,setUploadImageContent] = useState(null)
+function UploadImageSection({ setUserDetails }) {
+  const [uploadImageUrl, setUploadImageUrl] = useState("");
+  const [uploadImageContent, setUploadImageContent] = useState(null);
   const [caption, setCaption] = useState("");
   const ref = useRef();
   const browse = () => {
@@ -18,7 +18,7 @@ function UploadImageSection(closePanel) {
   const changeHandler = (e) => {
     if (e.target.name !== "caption") {
       const selectedImage = e.target.files[0];
-      setUploadImageContent(selectedImage)
+      setUploadImageContent(selectedImage);
       const url = URL.createObjectURL(selectedImage);
       setUploadImageUrl(url);
     } else {
@@ -37,19 +37,23 @@ function UploadImageSection(closePanel) {
     if (caption !== "") {
       formData.append("caption", caption);
     }
-    formData.append("mediaType","image")
-    formData.append("postType","post")
+    formData.append("mediaType", "image");
+    formData.append("postType", "post");
     if ([...formData.keys()].length > 0) {
-      const response = await fetch("http://localhost:5000/upload/uploadContent", {
-        method: "POST",
-        body: formData,
-        credentials:"include"
-      });
+      const response = await fetch(
+        "http://localhost:5000/upload/uploadContent",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        },
+      );
       const result = await response.json();
-      console.log(result)
+      console.log(result);
       if (result.success) {
         setMessageVisible(true);
         setMessage({ message: result.message, color: "green" });
+        setUserDetails((user) => ({ ...user, no_of_posts: user.no_of_posts + 1 }));
       }
     } else {
       setMessageVisible(true);

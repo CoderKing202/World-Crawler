@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import profileStyles from "../../styles/profileStyles.module.css";
 import styles from "../../styles/signupStyles.module.css";
 
-function UploadReelSection({ closePanel }) {
+function UploadReelSection({ setUserDetails }) {
   const [isMessageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState({ message: "", color: "" });
   const [uploadReelUrl, setUploadReelUrl] = useState("");
@@ -39,6 +39,7 @@ function UploadReelSection({ closePanel }) {
       if (result.success) {
         setMessageVisible(true);
         setMessage({ message: result.message, color: "green" });
+        setUserDetails((user) => ({ ...user, no_of_reels: user.no_of_reels + 1 }));
       }
     } else {
       setMessageVisible(true);
