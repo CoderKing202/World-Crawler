@@ -14,7 +14,7 @@ function PostsContent({ userDetails,openPopUp }) {
     for (let i = 0; i < contents.length; i = i + subArrayLen) {
       result.push(contents.slice(i, i + subArrayLen));
     }
-console.log(result)
+// console.log(result)
     return result;
   };
     useEffect(() => {
@@ -52,9 +52,9 @@ console.log(result)
               // console.log(contentBlock.length, subArrayLength);
              
               let contentSplit = content.mediaUrl.split("/");
-               console.log(contentSplit)
+              //  console.log(contentSplit)
               let contentType = contentSplit[contentSplit.length - 2];
-              console.log(content.mediaUrl)
+              // console.log(content.mediaUrl)
               return contentType === "image" ? (
                 <img
                   className={style.content}

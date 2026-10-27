@@ -26,11 +26,11 @@ function Share({ shareBoxStatus, setShareBoxStatus,setCommentBoxStatus }) {
                       <img src="" alt="Share Area" />
                       <span>Username</span>
                     </div>
-                    <span id={style.shareText}>text</span>
+                 
                   </div>
                 </div>
                 <div id={style.shareWidget}>
-                  <textarea />
+               
                   <button>Share</button>
                 </div>
               </div>

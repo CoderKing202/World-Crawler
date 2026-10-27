@@ -21,10 +21,10 @@ function PopUpContent({ popUpDetails, closePopUp }) {
           alt="close Content Image"
           onClick={closePopUp}
         />
+        <div id={style.contentDetails}>
         {popUpDetails.type == "image" ? (
           <img
             src={src}
-            style={{maxHeight:500,maxWidth:500}}
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -40,7 +40,8 @@ function PopUpContent({ popUpDetails, closePopUp }) {
           />
           // style={{border:"2px solid red"}}
         )}
-       
+        <span>{popUpDetails.caption}</span>
+       </div>
         <div id={style.contentWidget}>
           <Comment
             commentBoxStatus={commentBoxStatus}
