@@ -1,9 +1,41 @@
 import React from "react";
+import style from "../styles/uploadedContents.module.css";
+import { Link } from "react-router-dom";
 
-function Share() {
+function Share({ shareBoxStatus, setShareBoxStatus,setCommentBoxStatus }) {
+    const openShareSection = (e) => {
+      e.stopPropagation()
+      setCommentBoxStatus(false)
+    setShareBoxStatus(true);
+  };
+  const closeShareSection = ()=>{
+    setShareBoxStatus(false)
+  }
   return (
-    <div>
+    <div id={style.shareBox}>
+        <div id={style.shareList} style={shareBoxStatus?{display:"block"}:{display:"none"}}>
+                <img
+                  id={style.closeShare}
+                  src="/World-Crawler/closeBtn.png"
+                  alt="share section close button"
+                  onClick={closeShareSection}
+                />
+                <div id={style.shareArea}>
+                  <div id={style.shareUser}>
+                    <div id={style.shareUserDetail}>
+                      <img src="" alt="Share Area" />
+                      <span>Username</span>
+                    </div>
+                    <span id={style.shareText}>text</span>
+                  </div>
+                </div>
+                <div id={style.shareWidget}>
+                  <textarea />
+                  <button>Share</button>
+                </div>
+              </div>
       <svg
+        onClick={openShareSection}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         width="28"

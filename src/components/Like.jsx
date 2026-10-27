@@ -2,12 +2,14 @@ import React from "react";
 import { useEffect } from "react";
 
 function Like({ likeStatus, setLikeStatus, mediaSrc }) {
-  const toggleLikeStatus = async () => {
+  const toggleLikeStatus = async (e) => {
+    e.stopPropagation()
     console.log(mediaSrc)
     if (likeStatus === false) {
       const response = await fetch("http://localhost:5000/upload/likeContent", {
         method: "POST",
         body: JSON.stringify({ src: mediaSrc }),
+        headers:{"Content-Type":"application/json"},
         credentials: "include",
       });
       setLikeStatus(true);
@@ -16,6 +18,7 @@ function Like({ likeStatus, setLikeStatus, mediaSrc }) {
         method: "POST",
         body: JSON.stringify({ src: mediaSrc }),
         credentials: "include",
+        headers:{"Content-Type":"application/json"},
       });
       setLikeStatus(false);
     }

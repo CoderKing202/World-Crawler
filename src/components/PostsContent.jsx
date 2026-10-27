@@ -14,25 +14,31 @@ function PostsContent({ userDetails,openPopUp }) {
     for (let i = 0; i < contents.length; i = i + subArrayLen) {
       result.push(contents.slice(i, i + subArrayLen));
     }
-
+console.log(result)
     return result;
   };
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "http://localhost:5000/upload/getContentsLinks/post",
-        {
-          credentials: "include",
-        },
-      );
-      const result = await response.json();
-      // console.log(result);
-      if (result.success) {
-        // console.log(parseContents(result.contents));
-        setContents(parseContents(result.contents));
-      }
-    })();
-  }, [userDetails]);
+    useEffect(() => {
+      (async () => {
+        const response = await fetch(
+          "http://localhost:5000/upload/getContentsDetails/post",
+          {
+            credentials: "include",
+          },
+        );
+        const result = await response.json();
+        // console.log(result);
+        if (result.success) {
+          // console.log(parseContents(result.contents));
+          // let contents = result.contentDetails.map((content) => {
+          //   // console.log(content)
+          //   return content.mediaUrl;
+          // });
+          setContents(parseContents(result.contentDetails));
+  
+          // console.log(contents)
+        }
+      })();
+    }, [userDetails]);
   
 
 
@@ -44,17 +50,20 @@ function PostsContent({ userDetails,openPopUp }) {
           <div key={contentBlock[0]} id={style.mediaContentBlock}>
             {contentBlock.map((content) => {
               // console.log(contentBlock.length, subArrayLength);
-              let contentSplit = content.split("/");
+             
+              let contentSplit = content.mediaUrl.split("/");
+               console.log(contentSplit)
               let contentType = contentSplit[contentSplit.length - 2];
+              console.log(content.mediaUrl)
               return contentType === "image" ? (
                 <img
                   className={style.content}
                   key={contentSplit[contentSplit.length - 1]}
                   onClick={(e)=>{
                     e.preventDefault()
-                    openPopUp("image",contentSplit[contentSplit.length - 1])
+                    openPopUp("image",contentSplit[contentSplit.length - 1],content.caption)
                   }}
-                  src={content}
+                  src={content.mediaUrl}
                   style={
                     contentBlock.length === subArrayLength
                       ? {}
@@ -68,7 +77,7 @@ function PostsContent({ userDetails,openPopUp }) {
                 <video
                   key={contentSplit[contentSplit.length - 1]}
                   className={style.content}
-                  src={content}
+                  src={content.mediaUrl}
                   style={
                     contentBlock.length === subArrayLength
                       ? {}
@@ -79,7 +88,7 @@ function PostsContent({ userDetails,openPopUp }) {
                   }
                   // controls
                    onClick={(e)=>{
-                    openPopUp("video",contentSplit[contentSplit.length - 1])
+                    openPopUp("video",contentSplit[contentSplit.length - 1],content.caption)
                   }}
                 />
               );

@@ -13,7 +13,7 @@ import PopUpContent from "./PopUpContent";
 function Profile() {
   const navigate = useNavigate();
   const [tab, setTab] = useState("posts");
-  const [popUpDetails, setPopUpDetails] = useState({ id: "", type: "" });
+  const [popUpDetails, setPopUpDetails] = useState({ id: "", type: "",caption :""});
   // making states to handle content file object
   const [menu, setMenu] = useState({ type: "", tab: "" });
   const [username, setUserName] = useState("");
@@ -59,17 +59,25 @@ function Profile() {
   //console.log(
   //   new URL("http:/localhost:5000/media/image/123", location.href).href,
   // );
-  const openPopUp = (type, id) => {
+  const openPopUp = (type, id,caption) => {
     setPopUpDetails({
       id,
       type,
+      caption
     });
   };
+  const closePopUp=()=>{
+      setPopUpDetails({
+      id:"",
+      type:"",
+      caption:""
+    });
+  }
 
   return (
     <>
       {popUpDetails.id !== "" ? (
-        <PopUpContent popUpDetails={popUpDetails} />
+        <PopUpContent popUpDetails={popUpDetails} closePopUp={closePopUp}/>
       ) : (
         <></>
       )}
