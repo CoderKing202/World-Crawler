@@ -1,4 +1,17 @@
 /* Here styles of Home page is present */
+#postWidget{
+ /* display: flex; */
+ overflow-wrap: anywhere;
+ padding-left: 10px;
+}
+#postWidget div{
+    margin-inline: 5px;   
+    display: inline;
+}
+#postWidget span{
+    margin-left: 5px;
+    font-size: 40px;
+}
 
 #homeMain{
     padding-top: 71px;
@@ -31,10 +44,11 @@
 /* styling posts*/
 .post{
     border: 2px solid red;
-    height: 900px;
+    /* height: 900px; */
     flex-shrink: 0;
      margin-bottom:50px;
     width: 750px;
+    font-size: 35px;
     overflow-wrap: anywhere;
 }
 
@@ -52,7 +66,13 @@
     width: 90px;
     margin-right: 7px;
     border-radius: 50%;
+    cursor: pointer;
 }
+
+.postOwnerInfo span{
+    cursor: pointer;
+}
+
 .postContent{
     height: 660px;
     border: 2px solid blue;
@@ -66,10 +86,28 @@
     /* object-fit: cover; */
 }
 
+@media(max-width:1023px){
+
+ .postOwnerInfo{
+    border: 2px solid green;
+    height: 70px;
+    
+}
+.postOwnerInfo img{
+    height: 60px;
+    width: 60px;
+}
+ #homeMain{
+    padding-top: 67px;
+    background-color: #f8e1e7;
+    height: 87vh;    
+    overflow: auto;
+}   
+}
 @media(max-width:852px){
     .post{
         width: 85vw;
-        height: 700px;
+        /* height: 700px; */
     }
     
 .postOwnerInfo{
@@ -80,20 +118,9 @@
     width: 60px;
 }
     /* styling posts*/
- #homeMain{
-    padding-top: 67px;
-    background-color: #f8e1e7;
-    height: 87vh;    
-    overflow: auto;
-}   
-    .postOwnerInfo{
-    border: 2px solid green;
-    height: 70px;
-}
-.postContent{
-    height: 525px;
-    border: 2px solid blue;
-}
+
+    
+
 
 }
 
@@ -109,10 +136,7 @@
 
 
 
-.postOwnerInfo img{
-    height: 60px;
-    width: 60px;
-}
+
 }
 @media(max-width:427px){
     #imgLogo{

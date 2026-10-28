@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/homeStyles.module.css";
+import Like from "./Like.jsx";
+import Share from "./Share.jsx";
+import Comment from "./Comment.jsx";
 
 import Post from "./Post.jsx";
 
@@ -13,7 +16,7 @@ function Home({ isLogin }) {
 
   const loadPosts = async () => {
     const response = await fetch(
-      `http://localhost:5000/upload/getPosts?page=${page}`,
+      `http://localhost:5000/upload/getHomePosts?page=${page}`,
       {
         credentials: "include",
       },
