@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-
+import style from "../styles/uploadedContents.module.css"
 function Like({ likeStatus, setLikeStatus, mediaSrc }) {
   const toggleLikeStatus = async (e) => {
     e.stopPropagation()
@@ -37,7 +37,7 @@ function Like({ likeStatus, setLikeStatus, mediaSrc }) {
     })()
   },[])
   return (
-    <div>
+    <div id={style.likeBox}>
       <svg
         onClick={toggleLikeStatus}
         xmlns="http://www.w3.org/2000/svg"

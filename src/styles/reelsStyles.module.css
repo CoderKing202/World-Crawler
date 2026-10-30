@@ -1,0 +1,108 @@
+#reelBox {
+  height: 100vh;
+  width: 100vw;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid green; */
+}
+
+#reelDiv {
+     position: relative;
+  /* height: calc(100vh - 130px); */
+  display: flex;
+  margin-top: 65px;
+  height: 90vh;
+  width: 600px;
+  /* border: 2px solid red; */
+  
+}
+
+/* Here are styles of mobile widgets*/
+
+#MobileWidgets{
+    display: flex;
+    position: absolute;
+    /* border: 2px solid blue; */
+    width: 100%;
+    height: 100%;
+    top:0;
+    pointer-events: none;
+    
+}
+#contentsInfoDiv{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: end;
+    margin-bottom: 50px;
+    margin-left: 10px;
+    
+}
+#floatingWidget{
+    width: 40px;
+    /* border: 2px solid green; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+#contentInfo{
+  color: white;
+}
+/* Here are styles of mobile widgets*/
+
+
+#reelDiv video {
+  /* margin-top: 35px; */
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  cursor: pointer;
+      object-fit: fill;
+}
+
+#buttonDesktopWidget {
+  /* border: 2px solid red; */
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+#floatingWidget{
+  display: none;
+}  
+#contentInfo{
+  width: calc(100% - 40px);
+}
+@media (max-width: 1023px) {
+  #MobileWidgets{
+    display: flex;
+  }
+#contentInfo{
+  width: 100%;
+}
+#floatingWidget{
+  display: flex;
+}
+
+  #reelDiv {
+    height: calc(100vh - 160px);
+    width: 100vw;
+    margin-top: 0px;
+     color:white;
+  }
+  #reelDiv video {
+    height: 100%;
+
+    width: 100%;
+  }
+ #buttonDesktopWidget {
+ display: none;
+} 
+}

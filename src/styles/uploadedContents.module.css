@@ -68,8 +68,11 @@
 
 /* Comments styles */
 #commentbox,
-#shareBox {
+#shareBox,
+#likeBox {
   position: relative;
+  cursor: pointer;
+  pointer-events: auto;
 }
 #comment,
 #shareUser {

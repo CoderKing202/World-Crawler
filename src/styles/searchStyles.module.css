@@ -4,7 +4,10 @@
   /* border: 1px solid black; */
   object-fit: cover;
   /* flex: 1; */
-  
+}
+
+.contentBox img,.contentBox video{
+  cursor:pointer;
 }
 
 .contentBox{
@@ -72,14 +75,13 @@ border-bottom: 1px solid black;
   font-size: 30px;
   background-color: white;
   cursor: pointer;
-
 }
 
 @media(max-width:1023px){
   #engagementContents {
   height: calc(100vh - 268px);
   width: 90vw;
-  border: 2px solid red;
+  /* border: 2px solid red; */
 }
 }
 
@@ -110,7 +112,7 @@ border-bottom: 1px solid black;
   #engagementContents {
   height: calc(100vh - 250px);
   width: 90vw;
-  border: 2px solid red;
+  /* border: 2px solid red; */
 }
 }
 
