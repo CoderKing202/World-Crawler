@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import profileStyles from "../../styles/profileStyles.module.css";
 import styles from "../../styles/signupStyles.module.css";
 
-function UploadVideoSection({ setUserDetails }) {
+function UploadVideoSection({ setUserDetails,activateTrigger }) {
   const [isMessageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState({ message: "", color: "" });
   const [uploadVideoUrl, setUploadVideoUrl] = useState("");
@@ -43,6 +43,7 @@ function UploadVideoSection({ setUserDetails }) {
           ...user,
           no_of_posts: user.no_of_posts + 1,
         }));
+        activateTrigger((trigger)=>(!trigger))
       }
     } else {
       setMessageVisible(true);

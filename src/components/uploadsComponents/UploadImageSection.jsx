@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import profileStyles from "../../styles/profileStyles.module.css";
 import styles from "../../styles/signupStyles.module.css";
 
-function UploadImageSection({ setUserDetails }) {
+function UploadImageSection({ setUserDetails, activateTrigger }) {
   const [uploadImageUrl, setUploadImageUrl] = useState("");
   const [uploadImageContent, setUploadImageContent] = useState(null);
   const [caption, setCaption] = useState("");
@@ -53,7 +53,11 @@ function UploadImageSection({ setUserDetails }) {
       if (result.success) {
         setMessageVisible(true);
         setMessage({ message: result.message, color: "green" });
-        setUserDetails((user) => ({ ...user, no_of_posts: user.no_of_posts + 1 }));
+        setUserDetails((user) => ({
+          ...user,
+          no_of_posts: user.no_of_posts + 1,
+        }));
+        activateTrigger((trigger) => !trigger);
       }
     } else {
       setMessageVisible(true);

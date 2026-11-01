@@ -23,7 +23,6 @@ function Home({ isLogin }) {
     );
     const result = await response.json();
     console.log(result.posts);
-
     if (result.success) {
       setContents(result.posts);
     }
@@ -44,7 +43,7 @@ function Home({ isLogin }) {
     <div id={styles.homeBox}>
       <div id={styles.homeMain}>
         <div id={styles.imgLogo}>
-          <img src="/World-Crawler/logo.png" alt="Website Logo" />{" "}
+          <img src="/World-Crawler/logo.png" alt="Website Logo" />
           <span>World Crawler</span>
         </div>
         {contents.map((content) => (

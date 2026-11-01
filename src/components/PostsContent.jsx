@@ -33,7 +33,7 @@ function PostsContent({ userDetails, openPopUp }) {
         // });
         setContents(parseContents(result.contentDetails));
 
-        // console.log(contents)
+        console.log(contents)
       }
     })();
   }, [userDetails]);

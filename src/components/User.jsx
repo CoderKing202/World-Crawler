@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import userStyles from "../styles/profileStyles.module.css";
 import { useNavigate } from "react-router-dom";
-function User({ isLogin }) {
+function User({ isLogin, activateTrigger}) {
   const navigate = useNavigate();
   const { username } = useParams();
   const [userDetails, setUserDetails] = useState({user:{},success:false});
@@ -30,6 +30,7 @@ function User({ isLogin }) {
       const result = await response.json();
       if(result.success === true){
         setUserDetails(result);
+        activateTrigger((trigger)=>(!trigger))
       }
       //console.log(result)
       // //console.log(result.user.profileImage)

@@ -3,7 +3,7 @@ import profileStyles from "../styles/profileStyles.module.css";
 import { useRef, useState } from "react";
 import styles from "../styles/signupStyles.module.css";
 
-function UpdateProfile({ closePanel, userDetails, setUserDetails }) {
+function UpdateProfile({ closePanel, userDetails, setUserDetails,activateTrigger}) {
   const [initialState, setInitialState] = useState({});
   // intitial state for comparing fields so that we send only those fields which we want to update
   const [imageUrl, setImageUrl] = useState();
@@ -97,6 +97,8 @@ function UpdateProfile({ closePanel, userDetails, setUserDetails }) {
           success: previousUser.success,
           user: { ...previousUser.user, ...loggedInUser.user },
         }));
+        activateTrigger((trigger)=>(!trigger))
+        setTrigger()
       }
     })();
   }, [trigger]);
