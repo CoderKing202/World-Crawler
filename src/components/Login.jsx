@@ -48,7 +48,6 @@ function Login({setLoading,isLogin}) {
       setCredentials((state)=>{
         return {...state,[e.target.name]:e.target.value}
       })
-
   }
   
 
