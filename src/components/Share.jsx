@@ -2,7 +2,8 @@ import React from "react";
 import style from "../styles/uploadedContents.module.css";
 import { Link } from "react-router-dom";
 
-function Share({ shareBoxStatus, setShareBoxStatus,setCommentBoxStatus }) {
+
+function Share({ shareBoxStatus, setShareBoxStatus,setCommentBoxStatus,shareStyle }) {
     const openShareSection = (e) => {
       e.stopPropagation()
       setCommentBoxStatus(false)
@@ -13,7 +14,7 @@ function Share({ shareBoxStatus, setShareBoxStatus,setCommentBoxStatus }) {
   }
   return (
     <div id={style.shareBox}>
-        <div id={style.shareList} style={shareBoxStatus?{display:"block"}:{display:"none"}}>
+        <div id={style.shareList} style={shareBoxStatus?{display:"block",...shareStyle}:{display:"none"}}>
                 <img
                   id={style.closeShare}
                   src="/World-Crawler/closeBtn.png"

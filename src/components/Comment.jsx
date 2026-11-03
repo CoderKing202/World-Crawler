@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import style from "../styles/uploadedContents.module.css";
 import { Link } from "react-router-dom";
 
-function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus }) {
+function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus,commentStyle }) {
   const openCommentSection = (e) => {
       e.stopPropagation()
     setShareBoxStatus(false)
@@ -48,7 +48,7 @@ function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus }) {
   //   },[])
   return (
     <div id={style.commentbox}>
-      <div id={style.comments} style={commentBoxStatus?{display:"block"}:{display:"none"}}>
+      <div id={style.comments} style={commentBoxStatus?{display:"block",...commentStyle}:{display:"none"}}>
         <img
           id={style.closeComment}
           src="/World-Crawler/closeBtn.png"

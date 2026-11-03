@@ -47,6 +47,7 @@ function PopUpContent({ popUpDetails, closePopUp }) {
             commentBoxStatus={commentBoxStatus}
             setCommentBoxStatus={setCommentBoxStatus}
             setShareBoxStatus={setShareBoxStatus}
+            commentStyle={{right:0,  bottom: -15}}
           />
           <Like
             setLikeStatus={setLikeStatus}
@@ -57,6 +58,7 @@ function PopUpContent({ popUpDetails, closePopUp }) {
             shareBoxStatus={shareBoxStatus}
             setShareBoxStatus={setShareBoxStatus}
             setCommentBoxStatus={setCommentBoxStatus}
+            shareStyle={{right:0,  bottom: 0}}
           />
         </div>
         

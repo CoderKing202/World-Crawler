@@ -6,8 +6,10 @@ import Comment from "./Comment.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Reels() {
+  let currentReelIndex = useRef(0)
   const navigate = useNavigate();
   const reelsContainer = useRef(null);
+  const previousScrollTop = useRef(0);
   const [likeStatus, setLikeStatus] = useState(false);
   const [commentBoxStatus, setCommentBoxStatus] = useState(false);
   const [shareBoxStatus, setShareBoxStatus] = useState(false);
@@ -16,6 +18,38 @@ function Reels() {
   const [fullCaptions, setFullCaptions] = useState([]);
 
   useEffect(() => {
+    const container = reelsContainer.current;
+    const scrollEndHandle = () => {
+      const containerScrollTop = container.scrollTop;
+    
+      if (containerScrollTop > previousScrollTop.current) {
+        currentReelIndex.current += 1
+        const currentVideo = videoRefs.current.get(
+          `reel${currentReelIndex.current}`,
+        );
+           console.log("Current index:", currentReelIndex.current);
+        // console.log(currentReelIndex)
+        currentVideo.play();
+
+      } else if (containerScrollTop < previousScrollTop.current) {
+         console.log("Current index:", currentReelIndex.current);
+        currentReelIndex.current -= 1
+        // console.log(currentReelIndex - 1);
+        const currentVideo = videoRefs.current.get(
+          `reel${currentReelIndex.current}`,
+        );
+        if(!currentVideo.paused){
+          currentVideo.currentTime = 0;
+          currentVideo.play()
+        }
+        
+        
+      }
+     console.log("Hello")
+      previousScrollTop.current = containerScrollTop;
+    };
+    container.addEventListener("scrollend", scrollEndHandle);
+    // console.log(container.addEventListener);
     (async () => {
       const response = await fetch("http://localhost:5000/upload/getReels");
       const result = await response.json();
@@ -25,13 +59,23 @@ function Reels() {
         for (const reel of result.reels) {
           captionStatus.push(false);
         }
-        
         setFullCaptions(captionStatus);
         setReels(result.reels);
       }
     })();
+    return () => {
+      container.removeEventListener("scrollend", scrollEndHandle);
+    };
   }, []);
+  useEffect(() => {
+    const video = videoRefs.current.get("reel0");
+    console.log(video);
 
+    if (video !== undefined) {
+      video.muted = true;
+      video.play();
+    }
+  }, [reels]);
   const scrollClick = (e) => {
     if (e.target.id === styles.upScroll) {
       reelsContainer.current.scrollBy({
@@ -46,29 +90,25 @@ function Reels() {
     }
   };
   const moreCaptions = (index) => {
-    
-    let updatedFullCaptions = fullCaptions.map((caption,key)=>{
-      if(key == index){
-        return true
+    let updatedFullCaptions = fullCaptions.map((caption, key) => {
+      if (key == index) {
+        return true;
+      } else {
+        return caption;
       }
-      else{
-        return caption
-      }
-    })
-    setFullCaptions(updatedFullCaptions)
-    
+    });
+    setFullCaptions(updatedFullCaptions);
   };
-  
+
   const lessCaptions = (index) => {
-    let updatedFullCaptions = fullCaptions.map((caption,key)=>{
-      if(key == index){
-        return false
+    let updatedFullCaptions = fullCaptions.map((caption, key) => {
+      if (key == index) {
+        return false;
+      } else {
+        return caption;
       }
-      else{
-        return caption
-      }
-    })
-    setFullCaptions(updatedFullCaptions)
+    });
+    setFullCaptions(updatedFullCaptions);
   };
   const handleReelClick = (reel) => {
     navigate(`/user/${reel.author.username}`);
@@ -99,19 +139,27 @@ function Reels() {
                   </span>
                 </div>
                 <span id={styles.userCaption}>
-                 { !fullCaptions[index]?<>{reel.caption.slice(0,30)}<span
-                    className={styles.captions}
-                    onClick={(e) => moreCaptions(index)}
-                  >
-                    &nbsp;More...
-                  </span></>:<>
-                  {reel.caption}
-                  <span
-                    className={styles.captions}
-                    onClick={(e) => lessCaptions(index)}
-                  >
-                     &nbsp;Less
-                  </span></>}
+                  {!fullCaptions[index] ? (
+                    <>
+                      {reel.caption.slice(0, 30)}
+                      <span
+                        className={styles.captions}
+                        onClick={(e) => moreCaptions(index)}
+                      >
+                        &nbsp;More...
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {reel.caption}
+                      <span
+                        className={styles.captions}
+                        onClick={(e) => lessCaptions(index)}
+                      >
+                        &nbsp;Less
+                      </span>
+                    </>
+                  )}
                 </span>
               </div>
             </div>
@@ -139,8 +187,7 @@ function Reels() {
             }}
             src={reel.mediaUrl}
             controls
-            loop 
-            autoPlay={index===0?true:false}
+            loop
           />
 
           <div id={styles.buttonDesktopWidget}>
