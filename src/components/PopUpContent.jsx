@@ -43,22 +43,23 @@ function PopUpContent({ popUpDetails, closePopUp }) {
         <span>{popUpDetails.caption}</span>
        </div>
         <div id={style.contentWidget}>
-          <Comment
-            commentBoxStatus={commentBoxStatus}
-            setCommentBoxStatus={setCommentBoxStatus}
-            setShareBoxStatus={setShareBoxStatus}
-            commentStyle={{right:0,  bottom: -15}}
-          />
           <Like
             setLikeStatus={setLikeStatus}
             likeStatus={likeStatus}
             mediaSrc={src}
           />
+          <Comment
+            commentBoxStatus={commentBoxStatus}
+            setCommentBoxStatus={setCommentBoxStatus}
+            setShareBoxStatus={setShareBoxStatus}
+            commentStyle={{right:0,  bottom: 0,contentArea:150}}
+          />
+          
           <Share
             shareBoxStatus={shareBoxStatus}
             setShareBoxStatus={setShareBoxStatus}
             setCommentBoxStatus={setCommentBoxStatus}
-            shareStyle={{right:0,  bottom: 0}}
+            shareStyle={{right:0,  bottom: 0,contentArea:170}}
           />
         </div>
         

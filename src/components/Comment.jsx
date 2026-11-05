@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import style from "../styles/uploadedContents.module.css";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus,commentStyle }) {
+  let { right="auto", bottom, contentArea,left="auto" } = commentStyle;
   const openCommentSection = (e) => {
       e.stopPropagation()
     setShareBoxStatus(false)
@@ -12,7 +14,20 @@ function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus,comme
       e.stopPropagation()
     setCommentBoxStatus(false)
   }
-  
+  const commentSubmit = (e)=>{
+    e.preventDefault()
+  }
+  const [isLogin,setLogin] = useState(false)
+  useEffect(()=>(async ()=>{
+     const response = await fetch("http://localhost:5000/user/isLogin", {
+        method: "POST",
+        credentials: "include",
+      });
+      const result = await response.json();
+      //console.log(result.isLogin);
+      setLogin(result.isLogin);
+  })(),[])
+
   //  const toggleLikeStatus = async () => {
   //     console.log(mediaSrc)
   //     if (likeStatus === false) {
@@ -46,16 +61,19 @@ function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus,comme
 
   //     })()
   //   },[])
-  return (
-    <div id={style.commentbox}>
-      <div id={style.comments} style={commentBoxStatus?{display:"block",...commentStyle}:{display:"none"}}>
+  return (<>
+    {!isLogin?<></>:
+    <form id={style.commentbox} onSubmit={commentSubmit}>
+      <div id={style.comments} style={commentBoxStatus?{display:"block",right,bottom,left}:{display:"none"}}>
         <img
           id={style.closeComment}
           src="/World-Crawler/closeBtn.png"
           alt="comment section close button"
           onClick={closeCommentSection}
         />
-        <div id={style.commentsArea}>
+        <div id={style.commentsArea}
+        style={{height:contentArea}}
+        >
           <div id={style.comment}>
             <div id={style.commentUserDetail}>
               <img src="" alt="Comment Area" />
@@ -65,7 +83,7 @@ function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus,comme
           </div>
         </div>
         <div id={style.commentWidget}>
-          <textarea />
+          <textarea required/>
           <button>Comment</button>
         </div>
       </div>
@@ -92,7 +110,8 @@ function Comment({ commentBoxStatus, setCommentBoxStatus,setShareBoxStatus,comme
     a8.5 8.5 0 0 1 8 8v.5z"
         />
       </svg>
-    </div>
+    </form>}
+    </>
   );
 }
 

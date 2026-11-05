@@ -6,7 +6,7 @@ import Comment from "./Comment.jsx";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Post({ content }) {
+function Post({ content, fullCaptions, setFullCaptions, index }) {
   const navigate = useNavigate();
   const [likeStatus, setLikeStatus] = useState(false);
   const [commentBoxStatus, setCommentBoxStatus] = useState(false);
@@ -15,6 +15,29 @@ function Post({ content }) {
   const handlePostClick = () => {
     navigate(`/user/${content.author.username}`);
   };
+
+  const moreCaptions = (index) => {
+    let updatedFullCaptions = fullCaptions.map((caption, key) => {
+      if (key == index) {
+        return true;
+      } else {
+        return caption;
+      }
+    });
+    setFullCaptions(updatedFullCaptions);
+  };
+
+  const lessCaptions = (index) => {
+    let updatedFullCaptions = fullCaptions.map((caption, key) => {
+      if (key == index) {
+        return false;
+      } else {
+        return caption;
+      }
+    });
+    setFullCaptions(updatedFullCaptions);
+  };
+
   return (
     <div className={styles.post}>
       <div className={styles.postOwnerInfo}>
@@ -35,27 +58,45 @@ function Post({ content }) {
       </div>
       <div id={styles.postWidget}>
         <Like
-            setLikeStatus={setLikeStatus}
-            likeStatus={likeStatus}
-            mediaSrc={content.mediaUrl}
-
-          />
+          setLikeStatus={setLikeStatus}
+          likeStatus={likeStatus}
+          mediaSrc={content.mediaUrl}
+        />
         <Comment
-            commentBoxStatus={commentBoxStatus}
-            setCommentBoxStatus={setCommentBoxStatus}
-            setShareBoxStatus={setShareBoxStatus}
-          />
-          
-          <Share
-            shareBoxStatus={shareBoxStatus}
-            setShareBoxStatus={setShareBoxStatus}
-            setCommentBoxStatus={setCommentBoxStatus}
-          />
-          <span>
-{content.caption}
-          </span>
+          commentBoxStatus={commentBoxStatus}
+          setCommentBoxStatus={setCommentBoxStatus}
+          setShareBoxStatus={setShareBoxStatus}
+          commentStyle={{ bottom: 0, contentArea: 150, left: 0 }}
+        />
+
+        <Share
+          shareBoxStatus={shareBoxStatus}
+          setShareBoxStatus={setShareBoxStatus}
+          setCommentBoxStatus={setCommentBoxStatus}
+          shareStyle={{ left: 0, bottom: 0, contentArea: 170 }}
+        />
+        {content.caption.length > 30?!fullCaptions[index] ? (
+          <>
+            {content.caption.slice(0, 30)}
+            <span
+              className={styles.captions}
+              onClick={(e) => moreCaptions(index)}
+            >
+              &nbsp;More...
+            </span>
+          </>
+        ) : (
+          <>
+            {content.caption}
+            <span
+              className={styles.captions}
+              onClick={(e) => lessCaptions(index)}
+            >
+              &nbsp;Less
+            </span>
+          </>
+        ):<span>{content.caption}</span>}
       </div>
-      
     </div>
   );
 }

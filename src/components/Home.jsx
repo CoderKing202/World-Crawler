@@ -13,6 +13,7 @@ function Home({ isLogin }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [contents, setContents] = useState([]);
+   const [fullCaptions, setFullCaptions] = useState([]);
 
   const loadPosts = async () => {
     const response = await fetch(
@@ -25,6 +26,11 @@ function Home({ isLogin }) {
     console.log(result.posts);
     if (result.success) {
       setContents(result.posts);
+      let flags = []
+      for(let post of result.posts){
+        flags.push(false)
+      }
+      setFullCaptions(flags)
     }
   };
   useEffect(() => {
@@ -46,8 +52,8 @@ function Home({ isLogin }) {
           <img src="/World-Crawler/logo.png" alt="Website Logo" />
           <span>World Crawler</span>
         </div>
-        {contents.map((content) => (
-          <Post key={content._id} content={content} />
+        {contents.map((content,index) => (
+          <Post fullCaptions={fullCaptions} setFullCaptions={setFullCaptions} key={content._id} content={content} index={index}/>
         ))}
       </div>
     </div>

@@ -2,39 +2,49 @@ import React from "react";
 import style from "../styles/uploadedContents.module.css";
 import { Link } from "react-router-dom";
 
-
-function Share({ shareBoxStatus, setShareBoxStatus,setCommentBoxStatus,shareStyle }) {
-    const openShareSection = (e) => {
-      e.stopPropagation()
-      setCommentBoxStatus(false)
+function Share({
+  shareBoxStatus,
+  setShareBoxStatus,
+  setCommentBoxStatus,
+  shareStyle,
+}) {
+  let { right="auto", bottom, contentArea,left="auto" } = shareStyle;
+  const openShareSection = (e) => {
+    e.stopPropagation();
+    setCommentBoxStatus(false);
     setShareBoxStatus(true);
   };
-  const closeShareSection = ()=>{
-    setShareBoxStatus(false)
-  }
+  const closeShareSection = () => {
+    setShareBoxStatus(false);
+  };
   return (
     <div id={style.shareBox}>
-        <div id={style.shareList} style={shareBoxStatus?{display:"block",...shareStyle}:{display:"none"}}>
-                <img
-                  id={style.closeShare}
-                  src="/World-Crawler/closeBtn.png"
-                  alt="share section close button"
-                  onClick={closeShareSection}
-                />
-                <div id={style.shareArea}>
-                  <div id={style.shareUser}>
-                    <div id={style.shareUserDetail}>
-                      <img src="" alt="Share Area" />
-                      <span>Username</span>
-                    </div>
-                 
-                  </div>
-                </div>
-                <div id={style.shareWidget}>
-               
-                  <button>Share</button>
-                </div>
-              </div>
+      <div
+        id={style.shareList}
+        style={
+          shareBoxStatus
+            ? { display: "block", right,bottom,left }
+            : { display: "none" }
+        }
+      >
+        <img
+          id={style.closeShare}
+          src="/World-Crawler/closeBtn.png"
+          alt="share section close button"
+          onClick={closeShareSection}
+        />
+        <div id={style.shareArea}  style={{height:contentArea}}>
+          <div id={style.shareUser}>
+            <div id={style.shareUserDetail}>
+              <img src="" alt="Share Area" />
+              <span>Username</span>
+            </div>
+          </div>
+        </div>
+        <div id={style.shareWidget}>
+          <button>Share</button>
+        </div>
+      </div>
       <svg
         onClick={openShareSection}
         xmlns="http://www.w3.org/2000/svg"

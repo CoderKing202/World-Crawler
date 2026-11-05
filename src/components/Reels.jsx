@@ -169,11 +169,13 @@ function Reels() {
                 shareBoxStatus={shareBoxStatus}
                 setShareBoxStatus={setShareBoxStatus}
                 setCommentBoxStatus={setCommentBoxStatus}
+                 shareStyle={{right:0,  bottom: 0,contentArea:170}}
               />
               <Comment
                 commentBoxStatus={commentBoxStatus}
                 setCommentBoxStatus={setCommentBoxStatus}
                 setShareBoxStatus={setShareBoxStatus}
+                 commentStyle={{right:0,  bottom: 0,contentArea:150}}
               />
             </div>
           </div>
@@ -196,11 +198,13 @@ function Reels() {
               shareBoxStatus={shareBoxStatus}
               setShareBoxStatus={setShareBoxStatus}
               setCommentBoxStatus={setCommentBoxStatus}
+               shareStyle={{right:0,  bottom: 0,contentArea:170}}
             />
             <Comment
               commentBoxStatus={commentBoxStatus}
               setCommentBoxStatus={setCommentBoxStatus}
               setShareBoxStatus={setShareBoxStatus}
+               commentStyle={{right:0,  bottom: 0,contentArea:150}}
             />
           </div>
         </div>

@@ -1,14 +1,23 @@
+.captions{
+      color: red;
+  font-weight: bold;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
 /* Here styles of Home page is present */
 #postWidget{
  /* display: flex; */
  overflow-wrap: anywhere;
  padding-left: 10px;
+ position: relative;
+ 
 }
-#postWidget div{
+#postWidget>div{
     margin-inline: 5px;   
     display: inline;
 }
-#postWidget span{
+#postWidget>span{
     margin-left: 5px;
     font-size: 40px;
 }
@@ -48,7 +57,7 @@
     flex-shrink: 0;
      margin-bottom:50px;
     width: 750px;
-    font-size: 35px;
+     font-size: 35px;
     overflow-wrap: anywhere;
 }
 
@@ -77,13 +86,14 @@
     height: 660px;
     border: 2px solid blue;
     background-color: #F0F2F5;
+
 }
 
 .postContent img,.postContent video{
     height: 100%;
     width: 100%;
-    object-fit: contain;
-    /* object-fit: cover; */
+    object-fit: fill;
+    cursor: pointer;
 }
 
 @media(max-width:1023px){
