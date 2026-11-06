@@ -1,22 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../styles/uploadedContents.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Share({
   shareBoxStatus,
   setShareBoxStatus,
   setCommentBoxStatus,
   shareStyle,
+  setIsLoginLike,mediaSrc
 }) {
-  let { right="auto", bottom, contentArea,left="auto" } = shareStyle;
+    const [isLogin, setLogin] = useState(false);
+  const navigate = useNavigate()
+  
+  let { right="auto", bottom, contentHeight,left="auto",contentWidth } = shareStyle;
   const openShareSection = (e) => {
     e.stopPropagation();
     setCommentBoxStatus(false);
     setShareBoxStatus(true);
+     setIsLoginLike(false)
   };
   const closeShareSection = () => {
     setShareBoxStatus(false);
   };
+   useEffect(() => {
+      (async () => {
+        const response = await fetch("http://localhost:5000/user/isLogin", {
+          method: "POST",
+          credentials: "include",
+        });
+        const result = await response.json();
+        //console.log(result.isLogin);
+        setLogin(result.isLogin);
+      })();
+    }, []);
+    const toLogin = ()=>{
+    navigate("/login")
+  }
   return (
     <div id={style.shareBox}>
       <div
@@ -33,7 +52,14 @@ function Share({
           alt="share section close button"
           onClick={closeShareSection}
         />
-        <div id={style.shareArea}  style={{height:contentArea}}>
+        
+        {!isLogin?<><div id={style.noLoginShareArea}  style={{height:contentHeight, width:contentWidth}}>
+          <button onClick={toLogin}>Login</button>
+          
+        </div>
+        </>:<>
+        <div id={style.shareArea}  style={{height:contentHeight}}>
+
           <div id={style.shareUser}>
             <div id={style.shareUserDetail}>
               <img src="" alt="Share Area" />
@@ -43,7 +69,7 @@ function Share({
         </div>
         <div id={style.shareWidget}>
           <button>Share</button>
-        </div>
+        </div></>}
       </div>
       <svg
         onClick={openShareSection}

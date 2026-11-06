@@ -33,7 +33,7 @@ function PostsContent({ userDetails, openPopUp }) {
         // });
         setContents(parseContents(result.contentDetails));
 
-        console.log(contents)
+        // console.log(parseContents(result.contentDetails))
       }
     })();
   }, [userDetails]);
@@ -42,13 +42,14 @@ function PostsContent({ userDetails, openPopUp }) {
     <>
       {contents.map((contentBlock) => {
         return (
-          <div key={contentBlock[0]} id={style.mediaContentBlock}>
+          <div key={contentBlock[0].mediaUrl} id={style.mediaContentBlock}>
             {contentBlock.map((content) => {
               // console.log(contentBlock.length, subArrayLength);
 
               let contentSplit = content.mediaUrl.split("/");
               //  console.log(contentSplit)
               let contentType = contentSplit[contentSplit.length - 2];
+              // console.log(contentBlock[0])
               // console.log(content.mediaUrl)
               return contentType === "image" ? (
                 <img

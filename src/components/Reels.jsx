@@ -6,11 +6,11 @@ import Comment from "./Comment.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Reels() {
-  let currentReelIndex = useRef(0)
+  const [isLoginLike, setIsLoginLike] = useState(false);
+  let currentReelIndex = useRef(0);
   const navigate = useNavigate();
   const reelsContainer = useRef(null);
   const previousScrollTop = useRef(0);
-  const [likeStatus, setLikeStatus] = useState(false);
   const [commentBoxStatus, setCommentBoxStatus] = useState(false);
   const [shareBoxStatus, setShareBoxStatus] = useState(false);
   const [reels, setReels] = useState([]);
@@ -21,31 +21,28 @@ function Reels() {
     const container = reelsContainer.current;
     const scrollEndHandle = () => {
       const containerScrollTop = container.scrollTop;
-    
+
       if (containerScrollTop > previousScrollTop.current) {
-        currentReelIndex.current += 1
+        currentReelIndex.current += 1;
         const currentVideo = videoRefs.current.get(
           `reel${currentReelIndex.current}`,
         );
-           console.log("Current index:", currentReelIndex.current);
+        console.log("Current index:", currentReelIndex.current);
         // console.log(currentReelIndex)
         currentVideo.play();
-
       } else if (containerScrollTop < previousScrollTop.current) {
-         console.log("Current index:", currentReelIndex.current);
-        currentReelIndex.current -= 1
+        console.log("Current index:", currentReelIndex.current);
+        currentReelIndex.current -= 1;
         // console.log(currentReelIndex - 1);
         const currentVideo = videoRefs.current.get(
           `reel${currentReelIndex.current}`,
         );
-        if(!currentVideo.paused){
+        if (!currentVideo.paused) {
           currentVideo.currentTime = 0;
-          currentVideo.play()
+          currentVideo.play();
         }
-        
-        
       }
-     console.log("Hello")
+      console.log("Hello");
       previousScrollTop.current = containerScrollTop;
     };
     container.addEventListener("scrollend", scrollEndHandle);
@@ -133,7 +130,7 @@ function Reels() {
                     onClick={(e) => handleReelClick(reel)}
                     src={reel.author.profileImage}
                     alt="profile image"
-                  />{" "}
+                  />
                   <span onClick={(e) => handleReelClick(reel)}>
                     {reel.author.username}
                   </span>
@@ -164,18 +161,42 @@ function Reels() {
               </div>
             </div>
             <div id={styles.floatingWidget}>
-              <Like likeStatus={likeStatus} setLikeStatus={setLikeStatus} />
+              <Like
+                likeStyle={{
+                  contentHeight: 180,
+                  contentWidth: 200,
+                  right: 0,
+                  bottom: 0,
+                }}
+                isLoginLike={isLoginLike}
+                setIsLoginLike={setIsLoginLike}
+                mediaSrc={reel.mediaUrl}
+              />
               <Share
                 shareBoxStatus={shareBoxStatus}
                 setShareBoxStatus={setShareBoxStatus}
                 setCommentBoxStatus={setCommentBoxStatus}
-                 shareStyle={{right:0,  bottom: 0,contentArea:170}}
+                shareStyle={{
+                  right: 0,
+                  bottom: 0,
+                  contentHeight: 170,
+                  contentWidth: 200,
+                }}
+                setIsLoginLike={setIsLoginLike}
+                mediaSrc={reel.mediaUrl}
               />
               <Comment
                 commentBoxStatus={commentBoxStatus}
                 setCommentBoxStatus={setCommentBoxStatus}
                 setShareBoxStatus={setShareBoxStatus}
-                 commentStyle={{right:0,  bottom: 0,contentArea:150}}
+                commentStyle={{
+                  right: 0,
+                  bottom: 0,
+                  contentHeight: 150,
+                  contentWidth: 200,
+                }}
+                setIsLoginLike={setIsLoginLike}
+                mediaSrc={reel.mediaUrl}
               />
             </div>
           </div>
@@ -193,18 +214,44 @@ function Reels() {
           />
 
           <div id={styles.buttonDesktopWidget}>
-            <Like likeStatus={likeStatus} setLikeStatus={setLikeStatus} />
+            <Like
+              likeStyle={{
+                contentHeight: 180,
+                contentWidth: 200,
+                right: 0,
+                bottom: 0,
+              }}
+              setShareBoxStatus={setShareBoxStatus}
+              setCommentBoxStatus={setCommentBoxStatus}
+              setIsLoginLike={setIsLoginLike}
+              isLoginLike={isLoginLike}
+              mediaSrc={reel.mediaUrl}
+            />
             <Share
               shareBoxStatus={shareBoxStatus}
               setShareBoxStatus={setShareBoxStatus}
               setCommentBoxStatus={setCommentBoxStatus}
-               shareStyle={{right:0,  bottom: 0,contentArea:170}}
+              shareStyle={{
+                right: 0,
+                bottom: 0,
+                contentHeight: 170,
+                contentWidth: 200,
+              }}
+              setIsLoginLike={setIsLoginLike}
+              mediaSrc={reel.mediaUrl}
             />
             <Comment
               commentBoxStatus={commentBoxStatus}
               setCommentBoxStatus={setCommentBoxStatus}
               setShareBoxStatus={setShareBoxStatus}
-               commentStyle={{right:0,  bottom: 0,contentArea:150}}
+              commentStyle={{
+                right: 0,
+                bottom: 0,
+                contentHeight: 150,
+                contentWidth: 200,
+              }}
+              setIsLoginLike={setIsLoginLike}
+              mediaSrc={reel.mediaUrl}
             />
           </div>
         </div>

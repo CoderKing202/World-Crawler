@@ -114,7 +114,8 @@
 }
 
 #comments,
-#shareList {
+#shareList,
+#isLoginLikeBox{
   position: absolute;
   background-color: white;
   z-index: 9;
@@ -155,20 +156,32 @@
 #commentWidget button {
   flex: 1;
   
-  width: 110px;
+  width: 112px;
   font-size: 22px;
 }
 
-#commentsArea,
-#shareArea {
+#commentsArea,#noLoginCommentArea,
+#shareArea,#noLoginShareArea {
   height: 300px;
   font-size: 20px;
   padding: 20px;
   overflow: auto;
 }
 #shareArea {
-  
   width: 250px;
+}
+#noLoginCommentArea,#noLoginShareArea{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#noLoginCommentArea button,#noLoginShareArea button{
+  height: 40px;
+  width: 100px;
+  font-size: 25px;
+  background-color: rgb(0, 183, 255);
+  border-radius: 5px;
+  cursor: pointer;
 }
 /* Comments styles */
 

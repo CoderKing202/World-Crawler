@@ -57,7 +57,7 @@ function Profile() {
         setUserDetails(result);
       }
 
-      console.log(result)
+      // console.log(result)
       //console.log(result.user.profileImage)
     })();
   }, [trigger]);

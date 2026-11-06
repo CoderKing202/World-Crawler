@@ -9,12 +9,15 @@
 #postWidget{
  /* display: flex; */
  overflow-wrap: anywhere;
- padding-left: 10px;
+ /* padding-left: 10px; */
  position: relative;
  
 }
 #postWidget>div{
     margin-inline: 5px;   
+    display: inline;
+}
+#postWidget>form{
     display: inline;
 }
 #postWidget>span{

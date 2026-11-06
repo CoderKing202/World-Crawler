@@ -5,11 +5,12 @@ import Like from "./Like";
 import Share from "./Share";
 
 function PopUpContent({ popUpDetails, closePopUp }) {
-  console.log(popUpDetails)
+  const [isLoginLike, setIsLoginLike] = useState(false);
+  console.log(popUpDetails);
   const [src, setSrc] = useState(
     `http://localhost:5000/media/${popUpDetails.type}/${popUpDetails.id}`,
   );
-  const [likeStatus, setLikeStatus] = useState(false);
+
   const [commentBoxStatus, setCommentBoxStatus] = useState(false);
   const [shareBoxStatus, setShareBoxStatus] = useState(false);
   return (
@@ -22,49 +23,61 @@ function PopUpContent({ popUpDetails, closePopUp }) {
           onClick={closePopUp}
         />
         <div id={style.contentDetails}>
-        {popUpDetails.type == "image" ? (
-          <img
-            src={src}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-        ) : (
-          //  style={{border:"2px solid red"}}
-          <video
-            src={src}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            controls
-          />
-          // style={{border:"2px solid red"}}
-        )}
-        <span>{popUpDetails.caption}</span>
-       </div>
+          {popUpDetails.type == "image" ? (
+            <img
+              src={src}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            />
+          ) : (
+            //  style={{border:"2px solid red"}}
+            <video
+              src={src}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              controls
+            />
+            // style={{border:"2px solid red"}}
+          )}
+          <span>{popUpDetails.caption}</span>
+        </div>
         <div id={style.contentWidget}>
           <Like
-            setLikeStatus={setLikeStatus}
-            likeStatus={likeStatus}
+            likeStyle={{
+              contentHeight: 180,
+              contentWidth: 200,
+              right: 0,
+              bottom: 0,
+            }}
+            isLoginLike={isLoginLike}
+            setIsLoginLike={setIsLoginLike}
             mediaSrc={src}
           />
           <Comment
             commentBoxStatus={commentBoxStatus}
             setCommentBoxStatus={setCommentBoxStatus}
             setShareBoxStatus={setShareBoxStatus}
-            commentStyle={{right:0,  bottom: 0,contentArea:150}}
+            commentStyle={{ right: 0, bottom: 0, contentHeight: 150 }}
+            mediaSrc={src}
           />
-          
+
           <Share
             shareBoxStatus={shareBoxStatus}
             setShareBoxStatus={setShareBoxStatus}
             setCommentBoxStatus={setCommentBoxStatus}
-            shareStyle={{right:0,  bottom: 0,contentArea:170}}
+            shareStyle={{
+              right: 0,
+              bottom: 0,
+              contentHeight: 170,
+              contentWidth: 200,
+            }}
+            setIsLoginLike={setIsLoginLike}
+            mediaSrc={src}
           />
         </div>
-        
       </div>
-      
     </div>
   );
 }

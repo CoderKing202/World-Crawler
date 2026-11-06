@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/homeStyles.module.css";
 import Like from "./Like.jsx";
@@ -23,7 +23,7 @@ function Home({ isLogin }) {
       },
     );
     const result = await response.json();
-    console.log(result.posts);
+    // console.log(result.posts);
     if (result.success) {
       setContents(result.posts);
       let flags = []
@@ -53,7 +53,9 @@ function Home({ isLogin }) {
           <span>World Crawler</span>
         </div>
         {contents.map((content,index) => (
-          <Post fullCaptions={fullCaptions} setFullCaptions={setFullCaptions} key={content._id} content={content} index={index}/>
+          <React.Fragment key={content._id}>
+          <Post fullCaptions={fullCaptions} setFullCaptions={setFullCaptions} content={content} index={index}/>
+          </React.Fragment>
         ))}
       </div>
     </div>
