@@ -1,3 +1,10 @@
+#ScrollDetector{
+    height: 10px;
+    width: 100px;
+    /* border: 2px solid red; */
+    /* background-color: red; */
+    flex-shrink: 0;
+}
 .captions{
       color: red;
   font-weight: bold;
@@ -54,26 +61,29 @@
     background-color:#f8e1e7;height:100vh
 }
 /* styling posts*/
-.post{
-    border: 2px solid red;
+#homeMain .post{
+    border: 2px solid black;
     /* height: 900px; */
     flex-shrink: 0;
-     margin-bottom:50px;
+    margin-bottom:50px;
     width: 750px;
-     font-size: 35px;
+    font-size: 35px;
     overflow-wrap: anywhere;
 }
 
+#homeMain .post:nth-last-child(2){
+    margin-bottom:0px;
+}
 .postOwnerInfo{
     display: flex;
     align-items: center;
     font-size: 70px;
     padding-left: 10px;
-    border: 2px solid green;
+    /* border: 2px solid black; */
     height: 100px;
 }
 .postOwnerInfo img{
-    border: 2px solid red;
+    /* border: 1px solid black; */
     height: 90px;
     width: 90px;
     margin-right: 7px;
@@ -87,7 +97,7 @@
 
 .postContent{
     height: 660px;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     background-color: #F0F2F5;
 
 }

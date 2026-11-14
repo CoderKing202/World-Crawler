@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState , useCallback} from "react";
 import { useParams } from "react-router-dom";
 import profileStyles from "../styles/profileStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import Reels from "./ReelsContent";
 import PopUpContent from "./PopUpContent";
 
 function Profile() {
+
   const navigate = useNavigate();
   const [tab, setTab] = useState("posts");
   const [popUpDetails, setPopUpDetails] = useState({
@@ -33,6 +34,7 @@ function Profile() {
   const closePanel = () => {
     setMenu("");
   };
+  
 
   useEffect(() => {
     (async () => {
@@ -147,8 +149,9 @@ function Profile() {
 
                   {menu.tab === "image" ? (
                     <div id={profileStyles.UploadPostSection}>
-                      <UploadImageSection setUserDetails={setUserDetails} 
-                       activateTrigger={activateTrigger}
+                      <UploadImageSection
+                        setUserDetails={setUserDetails}
+                        activateTrigger={activateTrigger}
                       />
                     </div>
                   ) : (
@@ -156,7 +159,10 @@ function Profile() {
                   )}
                   {menu.tab === "video" ? (
                     <div id={profileStyles.UploadPostSection}>
-                      <UploadVideoSection setUserDetails={setUserDetails}  activateTrigger={activateTrigger}/>
+                      <UploadVideoSection
+                        setUserDetails={setUserDetails}
+                        activateTrigger={activateTrigger}
+                      />
                     </div>
                   ) : (
                     <></>
@@ -177,7 +183,10 @@ function Profile() {
                   id={profileStyles.closeButton}
                   onClick={closePanel}
                 />
-                <UploadReelSection setUserDetails={setUserDetails} activateTrigger={activateTrigger} />
+                <UploadReelSection
+                  setUserDetails={setUserDetails}
+                  activateTrigger={activateTrigger}
+                />
               </div>
             ) : (
               <></>

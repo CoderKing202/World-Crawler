@@ -12,11 +12,33 @@ function Reels() {
   const reelsContainer = useRef(null);
   const previousScrollTop = useRef(0);
   const [commentBoxStatus, setCommentBoxStatus] = useState(false);
-  const [shareBoxStatus, setShareBoxStatus] = useState(false);
-  const [reels, setReels] = useState([]);
-  const videoRefs = useRef(new Map());
-  const [fullCaptions, setFullCaptions] = useState([]);
 
+  const [shareBoxStatus, setShareBoxStatus] = useState(false);
+  const [triggerValue, trigger] = useState(true); // state made for triggering render forcibly so that we can trigger render whenever we want
+  const reelsRef = useRef([]);
+  const videoRefs = useRef(new Map());
+  const fullCaptionsRef = useRef([]);
+  const loadingRef = useRef(true);
+  const [page, setPage] = useState(1);
+  const loadReels = async () => {
+    const response = await fetch(
+      `http://localhost:5000/upload/getReels?page=${page}`,
+    );
+    // console.log("Hello");
+    const result = await response.json();
+    if (result.success) {
+      // console.log(result)
+      let captionStatus = [];
+      for (const reel of result.reels) {
+        captionStatus.push(false);
+      }
+      fullCaptionsRef.current = captionStatus;
+      // console.log([...reelsRef.current]);
+      reelsRef.current = [...reelsRef.current, ...result.reels];
+      // console.log(loadingRef.current)
+      trigger((prevTriggerValue) => !prevTriggerValue);
+    }
+  };
   useEffect(() => {
     const container = reelsContainer.current;
     const scrollEndHandle = () => {
@@ -27,52 +49,66 @@ function Reels() {
         const currentVideo = videoRefs.current.get(
           `reel${currentReelIndex.current}`,
         );
-        console.log("Current index:", currentReelIndex.current);
+        // console.log("Current index:", currentReelIndex.current);
+            const prevVideo = videoRefs.current.get(
+          `reel${currentReelIndex.current - 1}`,
+        ) || videoRefs.current.get(
+          `reel0`)
+          console.log(prevVideo)
+        prevVideo.muted = true
+       
+        if (currentReelIndex.current >= reelsRef.current.length - 1) {
+          console.log("Hello");
+          loadingRef.current = true;
+          setPage((prevPage) => prevPage + 1);
+        }
         // console.log(currentReelIndex)
         currentVideo.play();
       } else if (containerScrollTop < previousScrollTop.current) {
-        console.log("Current index:", currentReelIndex.current);
+        // console.log("Current index:", currentReelIndex.current);
         currentReelIndex.current -= 1;
         // console.log(currentReelIndex - 1);
         const currentVideo = videoRefs.current.get(
           `reel${currentReelIndex.current}`,
         );
+        
+         if(currentVideo.muted){
+          currentVideo.muted = false
+        }
         if (!currentVideo.paused) {
           currentVideo.currentTime = 0;
           currentVideo.play();
         }
+
       }
-      console.log("Hello");
+      // console.log(currentReelIndex.current);
+      // console.log(reelsRef.current);
       previousScrollTop.current = containerScrollTop;
     };
     container.addEventListener("scrollend", scrollEndHandle);
     // console.log(container.addEventListener);
-    (async () => {
-      const response = await fetch("http://localhost:5000/upload/getReels");
-      const result = await response.json();
-      if (result.success) {
-        // console.log(result)
-        let captionStatus = [];
-        for (const reel of result.reels) {
-          captionStatus.push(false);
-        }
-        setFullCaptions(captionStatus);
-        setReels(result.reels);
-      }
-    })();
+
     return () => {
       container.removeEventListener("scrollend", scrollEndHandle);
     };
   }, []);
   useEffect(() => {
+    if (loadingRef.current) {
+      loadingRef.current = false;
+      loadReels();
+    }
+  }, [
+    page,
+  ]); /** setting useEffect such that it is called when page state is updated */
+  useEffect(() => {
     const video = videoRefs.current.get("reel0");
-    console.log(video);
+    // console.log(video);
 
     if (video !== undefined) {
       video.muted = true;
       video.play();
     }
-  }, [reels]);
+  }, [triggerValue]);
   const scrollClick = (e) => {
     if (e.target.id === styles.upScroll) {
       reelsContainer.current.scrollBy({
@@ -87,31 +123,41 @@ function Reels() {
     }
   };
   const moreCaptions = (index) => {
-    let updatedFullCaptions = fullCaptions.map((caption, key) => {
+    let updatedFullCaptions = fullCaptionsRef.current.map((caption, key) => {
       if (key == index) {
         return true;
       } else {
         return caption;
       }
     });
-    setFullCaptions(updatedFullCaptions);
+    fullCaptionsRef.current = updatedFullCaptions;
+    trigger(!triggerValue);
   };
 
   const lessCaptions = (index) => {
-    let updatedFullCaptions = fullCaptions.map((caption, key) => {
+    let updatedFullCaptions = fullCaptionsRef.current.map((caption, key) => {
       if (key == index) {
         return false;
       } else {
         return caption;
       }
     });
-    setFullCaptions(updatedFullCaptions);
+    fullCaptionsRef.current = updatedFullCaptions;
+    trigger(!triggerValue);
   };
   const handleReelClick = (reel) => {
     navigate(`/user/${reel.author.username}`);
   };
   return (
     <div id={styles.reelBox} ref={reelsContainer}>
+      {loadingRef.current && (
+        <div id={styles.backGroundLoader}>
+          <img
+            src="/World-Crawler/spinner-transparent.gif"
+            alt="Loader Image"
+          />
+        </div>
+      )}
       <div id={styles.navigateButtons}>
         <div id={styles.upScroll} onClick={scrollClick}>
           &#8593;
@@ -120,7 +166,7 @@ function Reels() {
           &#8595;
         </div>
       </div>
-      {reels.map((reel, index) => (
+      {reelsRef.current.map((reel, index) => (
         <div key={reel._id} id={styles.reelDiv}>
           <div id={styles.MobileWidgets}>
             <div id={styles.contentsInfoDiv}>
@@ -136,7 +182,7 @@ function Reels() {
                   </span>
                 </div>
                 <span id={styles.userCaption}>
-                  {!fullCaptions[index] ? (
+                  {!fullCaptionsRef.current[index] ? (
                     <>
                       {reel.caption.slice(0, 30)}
                       <span

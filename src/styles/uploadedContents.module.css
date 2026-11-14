@@ -81,11 +81,11 @@
 
 #comment img,
 #shareUser img {
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin-right: 3px;
 }
 

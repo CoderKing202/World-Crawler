@@ -1,3 +1,20 @@
+/* Loader design */
+#backGroundLoader {
+  position: fixed;
+  background-color: white;
+  width: 100vw;
+  height: 95vh;
+  top: 73px;
+  z-index: 7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#backGroundLoader img {
+  transform: translateY(-20%);
+}
+/* Loader design */
 #navigateButtons {
   position: absolute;
   top: 50%;
@@ -9,28 +26,27 @@
   transform: translateY(-50%);
 }
 
-
-.captions{
+.captions {
   color: red;
   font-weight: bold;
   pointer-events: auto;
   cursor: pointer;
 }
-#userInfo{
+#userInfo {
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 20px;
-  pointer-events:auto;
+  pointer-events: auto;
 }
-#userInfo img{
-height: 40px;
-width: 40px;
-border-radius: 50%;
-cursor: pointer;
+#userInfo img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
 }
-#userInfo span{
-cursor: pointer;
+#userInfo span {
+  cursor: pointer;
 }
 
 #upScroll {
@@ -58,9 +74,9 @@ cursor: pointer;
   justify-content: start;
   align-items: center;
   /* border: 2px solid green; */
-  scroll-snap-type:y mandatory;
-  overflow: auto; 
-    /* Hide scrollbar */
+  scroll-snap-type: y mandatory;
+  overflow: auto;
+  /* Hide scrollbar */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -72,9 +88,9 @@ cursor: pointer;
   display: flex;
   /* margin-top: 74px; */
   height: 100vh;
-  padding-top:74px;
+  padding-top: 74px;
   width: 600px;
-  box-sizing:border-box;
+  box-sizing: border-box;
   flex-shrink: 0;
   /* border: 2px solid red; */
 }
@@ -133,13 +149,12 @@ cursor: pointer;
 }
 #floatingWidget {
   display: none;
-  
 }
 #contentInfo {
   width: calc(100% - 40px);
 }
 @media (max-width: 1023px) {
-  #navigateButtons{
+  #navigateButtons {
     display: none;
   }
   #MobileWidgets {
@@ -161,7 +176,7 @@ cursor: pointer;
     /* margin-top: 0px; */
     color: white;
   }
-  #reelBox{
+  #reelBox {
     /* padding-top: 74px; */
   }
   #reelDiv video {
@@ -175,6 +190,8 @@ cursor: pointer;
 @media (max-width: 369px) {
   #reelDiv {
     padding-top: 51px;
-    
+  }
+  #backGroundLoader {
+    top: 51px;
   }
 }

@@ -315,21 +315,17 @@
   background-color: #e91e63;
 }
 
-#createPostButton {
+#createPostButton,#createReelButton,#followButton,#messageButton {
   height: 50px;
   border-radius: 10px;
   width: 250px;
   border: #e91e63;
   font-size: 30px;
+  font-weight: bold;
 }
 
-#createReelButton {
-  height: 50px;
-  border-radius: 10px;
-  font-size: 30px;
-  width: 250px;
-
-  border: #e91e63;
+#followButton,#messageButton{
+  width: 150px;
 }
 
 #username {
@@ -387,7 +383,11 @@
     height: 20vh;
     width: 80vw;
   }
-
+#followButton,#messageButton{
+  width: 100px;
+  font-size: 18px;
+  height: 30px;
+}
   #bioBox {
     /* border: 2px solid red; */
     width: 312px;
@@ -502,5 +502,10 @@
     /* margin-top: -67px; */
     width: 80vw;
   }
+  #followButton,#messageButton{
+  width: 60px;
+  font-size: 11px;
+  height: 30px;
+}
   
 }

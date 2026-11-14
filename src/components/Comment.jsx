@@ -7,15 +7,17 @@ function Comment({
   commentBoxStatus,
   setCommentBoxStatus,
   setShareBoxStatus,
-  commentStyle, setIsLoginLike
-  ,mediaSrc
+  commentStyle,
+  setIsLoginLike,
+  mediaSrc,
 }) {
-  const [comment,setComment] = useState("")
-  const commentTextHandler = (e)=>{
-  setComment(e.target.value)
-  }
-  
-  const navigate = useNavigate()
+  const [comment, setComment] = useState("");
+  const commentTextHandler = (e) => {
+    setComment(e.target.value);
+  };
+  const [comments, setComments] = useState([]);
+
+  const navigate = useNavigate();
   let {
     right = "auto",
     bottom,
@@ -23,30 +25,50 @@ function Comment({
     left = "auto",
     contentWidth,
   } = commentStyle;
-  const openCommentSection = (e) => {
+  const openCommentSection = async (e) => {
     e.stopPropagation();
     setShareBoxStatus(false);
     setCommentBoxStatus(true);
-     setIsLoginLike(false)
+    setIsLoginLike(false);
+    const commentsResponse = await fetch(
+      `http://localhost:5000/upload/getComments?src=${mediaSrc}`,
+      {
+        credentials: "include",
+      },
+    );
+    const commentsResult = await commentsResponse.json();
+    if (commentsResult.success) {
+      setComments(commentsResult.comments);
+      console.log(commentsResult.comments)
+    }
   };
   const closeCommentSection = (e) => {
     e.stopPropagation();
     setCommentBoxStatus(false);
-     
   };
   const commentSubmit = async (e) => {
     e.preventDefault();
-        const response = await fetch("http://localhost:5000/upload/comment",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      credentials:"include",
-      body:JSON.stringify({
-        text:comment,
-        postContentUrl:mediaSrc
-      })
-    })
-    const result = await response.json()
-
+    const response = await fetch("http://localhost:5000/upload/comment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        text: comment,
+        postContentUrl: mediaSrc,
+      }),
+    });
+    const result = await response.json();
+    if (result.success) {
+      setComments((comments) => [
+        ...comments,
+        {
+          text: result.text,
+          username: result.user.username,
+          commentOwnerImage: result.user.profileImageUrl,
+          id: result.id,
+        },
+      ]);
+    }
   };
   const [isLogin, setLogin] = useState(false);
   useEffect(() => {
@@ -57,8 +79,11 @@ function Comment({
       });
       const result = await response.json();
       //console.log(result.isLogin);
-      setLogin(result.isLogin);
+      if (result.success) {
+        setLogin(result.isLogin);
+      }
     })();
+    // console.log(comments);
   }, []);
 
   //  const toggleLikeStatus = async () => {
@@ -94,9 +119,9 @@ function Comment({
 
   //     })()
   //   },[])
-  const toLogin = ()=>{
-    navigate("/login")
-  }
+  const toLogin = () => {
+    navigate("/login");
+  };
   return (
     <>
       <form id={style.commentbox} onSubmit={commentSubmit}>
@@ -108,40 +133,45 @@ function Comment({
               : { display: "none" }
           }
         >
+          <img
+            id={style.closeComment}
+            src="/World-Crawler/closeBtn.png"
+            alt="comment section close button"
+            onClick={closeCommentSection}
+          />
           {!isLogin ? (
             <>
-              <img
-                id={style.closeComment}
-                src="/World-Crawler/closeBtn.png"
-                alt="comment section close button"
-                onClick={closeCommentSection}
-              />
               <div
                 id={style.noLoginCommentArea}
-                style={{ height: contentHeight ,width:contentWidth}}
+                style={{ height: contentHeight, width: contentWidth }}
               >
                 <button onClick={toLogin}>Login</button>
               </div>
             </>
           ) : (
             <>
-              <img
-                id={style.closeComment}
-                src="/World-Crawler/closeBtn.png"
-                alt="comment section close button"
-                onClick={closeCommentSection}
-              />
               <div id={style.commentsArea} style={{ height: contentHeight }}>
-                <div id={style.comment}>
-                  <div id={style.commentUserDetail}>
-                    <img src="" alt="Comment Area" />
-                    <span>Username</span>
+                {comments.map((comment) => (
+                  <div
+                    key={comment.id}
+                    id={style.comment}
+                  >
+                    <div id={style.commentUserDetail}>
+                      <img src={comment.commentOwnerImage} alt="Comment Area"
+                      onError={(e)=>{e.target.src = "http://localhost:5173/World-Crawler/defaultUserImage.jpg"}}
+                      />
+                      <span>{comment.username}</span>
+                    </div>
+                    <span id={style.commentText}>{comment.text}</span>
                   </div>
-                  <span id={style.commentText}>text</span>
-                </div>
+                ))}
               </div>
               <div id={style.commentWidget}>
-                <textarea required value={comment} onChange={commentTextHandler}/>
+                <textarea
+                  required
+                  value={comment}
+                  onChange={commentTextHandler}
+                />
                 <button>Comment</button>
               </div>
             </>

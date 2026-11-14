@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import userStyles from "../styles/profileStyles.module.css";
 import { useNavigate } from "react-router-dom";
-function User({ isLogin, activateTrigger}) {
+function User({ isLogin}) {
   const navigate = useNavigate();
   const { username } = useParams();
   const [userDetails, setUserDetails] = useState({user:{},success:false});
@@ -17,7 +17,7 @@ function User({ isLogin, activateTrigger}) {
         method:"POST",
         credentials:"include"
       })
-
+      console.log(username)
       const isLoginResult = await isLoginResponse.json()
       //console.log(isLoginResult)
       if(isLoginResult.isLogin){
@@ -30,15 +30,23 @@ function User({ isLogin, activateTrigger}) {
       const result = await response.json();
       if(result.success === true){
         setUserDetails(result);
-        activateTrigger((trigger)=>(!trigger))
       }
-      //console.log(result)
+      console.log(result)
       // //console.log(result.user.profileImage)
       
     })();
   }, [username]);
   //console.log(new URL("http:/localhost:5000/media/image/123", location.href).href)
   return (
+    <>
+    <div id={userStyles.panelBackground}>
+    <div id={userStyles.followerList}>
+
+    </div>
+    <div id={userStyles.followingList}>
+
+    </div>
+    </div>
     <div id={userStyles.userContent} style={userDetails.success?{}:{
       justifyContent:"center",
       color:"red",
@@ -46,6 +54,7 @@ function User({ isLogin, activateTrigger}) {
       fontSize:30
       // alignItems:"center"
     }}>
+    
 { userDetails.success?<>
       <div id={userStyles.userInfoBox}>
         <div id={userStyles.userInfoBoxLeft}>
@@ -89,6 +98,7 @@ function User({ isLogin, activateTrigger}) {
         <div id={userStyles.mediaData}>Posts/Reels</div>
       </div></>:<>No user found with this username</>}
     </div>
+    </>
   );
 }
 

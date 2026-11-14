@@ -7,42 +7,49 @@ function Share({
   setShareBoxStatus,
   setCommentBoxStatus,
   shareStyle,
-  setIsLoginLike,mediaSrc
+  setIsLoginLike,
+  mediaSrc,
 }) {
-    const [isLogin, setLogin] = useState(false);
-  const navigate = useNavigate()
-  
-  let { right="auto", bottom, contentHeight,left="auto",contentWidth } = shareStyle;
+  const [isLogin, setLogin] = useState(false);
+  const navigate = useNavigate();
+
+  let {
+    right = "auto",
+    bottom,
+    contentHeight,
+    left = "auto",
+    contentWidth,
+  } = shareStyle;
   const openShareSection = (e) => {
     e.stopPropagation();
     setCommentBoxStatus(false);
     setShareBoxStatus(true);
-     setIsLoginLike(false)
+    setIsLoginLike(false);
   };
   const closeShareSection = () => {
     setShareBoxStatus(false);
   };
-   useEffect(() => {
-      (async () => {
-        const response = await fetch("http://localhost:5000/user/isLogin", {
-          method: "POST",
-          credentials: "include",
-        });
-        const result = await response.json();
-        //console.log(result.isLogin);
-        setLogin(result.isLogin);
-      })();
-    }, []);
-    const toLogin = ()=>{
-    navigate("/login")
-  }
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("http://localhost:5000/user/isLogin", {
+        method: "POST",
+        credentials: "include",
+      });
+      const result = await response.json();
+      //console.log(result.isLogin);
+      setLogin(result.isLogin);
+    })();
+  }, []);
+  const toLogin = () => {
+    navigate("/login");
+  };
   return (
     <div id={style.shareBox}>
       <div
         id={style.shareList}
         style={
           shareBoxStatus
-            ? { display: "block", right,bottom,left }
+            ? { display: "block", right, bottom, left }
             : { display: "none" }
         }
       >
@@ -52,24 +59,31 @@ function Share({
           alt="share section close button"
           onClick={closeShareSection}
         />
-        
-        {!isLogin?<><div id={style.noLoginShareArea}  style={{height:contentHeight, width:contentWidth}}>
-          <button onClick={toLogin}>Login</button>
-          
-        </div>
-        </>:<>
-        <div id={style.shareArea}  style={{height:contentHeight}}>
 
-          <div id={style.shareUser}>
-            <div id={style.shareUserDetail}>
-              <img src="" alt="Share Area" />
-              <span>Username</span>
+        {!isLogin ? (
+          <>
+            <div
+              id={style.noLoginShareArea}
+              style={{ height: contentHeight, width: contentWidth }}
+            >
+              <button onClick={toLogin}>Login</button>
             </div>
-          </div>
-        </div>
-        <div id={style.shareWidget}>
-          <button>Share</button>
-        </div></>}
+          </>
+        ) : (
+          <>
+            <div id={style.shareArea} style={{ height: contentHeight }}>
+              <div id={style.shareUser}>
+                <div id={style.shareUserDetail}>
+                  <img src="" alt="Share Area" />
+                  <span>Username</span>
+                </div>
+              </div>
+            </div>
+            <div id={style.shareWidget}>
+              <button>Share</button>
+            </div>
+          </>
+        )}
       </div>
       <svg
         onClick={openShareSection}
