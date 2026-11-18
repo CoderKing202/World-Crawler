@@ -5,6 +5,19 @@
   height: 200px;
   cursor: pointer;
 }
+
+#loadLoginDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#loadLoginDiv button{
+  height: 90px;
+  font-size: 20px;
+  background-color: aqua;
+  cursor: pointer;
+}
+
 #mediaContentBlock {
   display: flex;
   /* border: 2px solid red; */
@@ -38,7 +51,6 @@
   left: 50%;
   display: flex;
   transform: translate(-50%, -50%);
-  display: flex;
   justify-content: center;
 }
 

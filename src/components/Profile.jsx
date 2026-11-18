@@ -8,6 +8,7 @@ import UploadReelSection from "./uploadsComponents/UploadReelSection";
 import UpdateProfile from "./UpdateProfile";
 import Posts from "./PostsContent";
 import Reels from "./ReelsContent";
+
 import PopUpContent from "./PopUpContent";
 
 function Profile() {

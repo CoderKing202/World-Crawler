@@ -47,7 +47,7 @@ function ReelsContent({ userDetails, openPopUp }) {
   };
   const loadReels = async ()=>{
      const response = await fetch(
-        `http://localhost:5000/upload/getContentsDetails/reel?page=${page}`,
+        `http://localhost:5000/upload/getContentsDetails/reel/${userDetails.user.username}?page=${page}`,
         {
           credentials: "include",
         },
@@ -64,8 +64,10 @@ function ReelsContent({ userDetails, openPopUp }) {
         
         loadingRef.current = false;
         hasMoreRef.current = result.hasMore;
+        
+
         setContents(parseContents([...unParseContents(contents),...result.contentDetails]));
-        // console.log(parseContents(result.contentDetails))
+        console.log(parseContents(result.contentDetails))
       }
   }
   useEffect(() => {

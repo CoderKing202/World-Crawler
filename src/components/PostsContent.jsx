@@ -1,11 +1,13 @@
-import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import style from "../styles/uploadedContents.module.css";
+import { useNavigate } from "react-router-dom";
 
 function PostsContent({ userDetails, openPopUp }) {
+  const navigate = useNavigate()
   const hasMoreRef = useRef(false);
   const [page, setPage] = useState(1);
   const loadingRef = useRef(true);
+  const isLoggedOut = useRef(false);
   const [contents, setContents] = useState([]);
   const [subArrayLength, setSubArrayLength] = useState(0);
   const detectorCallback = useCallback((loaderElement) => {
@@ -37,7 +39,7 @@ function PostsContent({ userDetails, openPopUp }) {
     // console.log(result)
     return result;
   };
-   const unParseContents = (parsedContent) => {
+  const unParseContents = (parsedContent) => {
     let unParsedContent = [];
     for (let contents of parsedContent) {
       unParsedContent.push(...contents);
@@ -45,37 +47,40 @@ function PostsContent({ userDetails, openPopUp }) {
     // console.log(unParsedContent, page)
     return unParsedContent;
   };
-  const loadPosts = async ()=>{
-     const response = await fetch(
-        `http://localhost:5000/upload/getContentsDetails/post?page=${page}`,
-        {
-          credentials: "include",
-        },
+  const loadPosts = async () => {
+    const response = await fetch(
+      `http://localhost:5000/upload/getContentsDetails/post/${userDetails.user.username}?page=${page}`,
+      {
+        credentials: "include",
+      },
+    );
+    // console.log(page)
+    const result = await response.json();
+    // console.log(result);
+    if (result.success) {
+      // console.log(parseContents(result.contents));
+      // let contents = result.contentDetails.map((content) => {
+      //   // console.log(content)
+      //   return content.mediaUrl;
+      // });
+
+      loadingRef.current = false;
+      hasMoreRef.current = result.hasMore;
+      isLoggedOut.current = result.isLoggedOut;
+      // console.log(result.hasMore, "Hello");
+      console.log(result)
+      setContents(
+        parseContents([...unParseContents(contents), ...result.contentDetails]),
       );
-      // console.log(page)
-      const result = await response.json();
-      // console.log(result);
-      if (result.success) {
-        // console.log(parseContents(result.contents));
-        // let contents = result.contentDetails.map((content) => {
-        //   // console.log(content)
-        //   return content.mediaUrl;
-        // });
-        
-        loadingRef.current = false;
-        hasMoreRef.current = result.hasMore;
-        setContents(parseContents([...unParseContents(contents),...result.contentDetails]));
-        // console.log(parseContents(result.contentDetails))
-      }
-  }
+      // console.log(parseContents(result.contentDetails))
+    }
+  };
   useEffect(() => {
-     if(loadingRef.current){
-    loadPosts()
-        console.log("Hello")
-     }
-
-
-  }, [userDetails,page]);
+    if (loadingRef.current) {
+      loadPosts();
+      console.log("Hello");
+    }
+  }, [userDetails, page]);
 
   return (
     <>
@@ -148,20 +153,39 @@ function PostsContent({ userDetails, openPopUp }) {
                         style={{
                           flexBasis: `${(1 / subArrayLength) * 100}%`,
                           objectFit: "contain",
+                          flexGrow: 0,
                         }}
                       />
                     ) : (
-                      <></>
+                      isLoggedOut.current && (
+                        <div
+                          className={style.content}
+                          id={style.loadLoginDiv}
+                          style={{
+                            flexBasis: `${(1 / subArrayLength) * 100}%`,
+                            objectFit: "contain",
+                            flexGrow: 0,
+                          }}
+                        >
+                          <button
+                            onClick={() => {
+                              navigate("/login");
+                            }}
+                          >
+                            Login to View More Content
+                          </button>
+                        </div>
+                      )
                     )
                   ) : (
                     <></>
                   )}
-                  {
-                    (()=>{
-                      console.log(boxKey == contents.length - 1 &&
-                  contentKey == contentBlock.length - 1 )
-                    })()
-                  }
+                  {(() => {
+                    console.log(
+                      boxKey == contents.length - 1 &&
+                        contentKey == contentBlock.length - 1,
+                    );
+                  })()}
                 </>
               );
             })}

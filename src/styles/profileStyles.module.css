@@ -1,22 +1,53 @@
-
-#mediaData{
+#mediaData {
   overflow: auto;
 }
 
-#profileMessageBox{
-    /* message box for error messages and showing password strength*/
-    background-color:#E6E6E6;
-    height: 100px;
-    width: 300px;
-    position:absolute;
-    z-index: 3;
-    top:10px;
-    left:50%;
-    transform:translate(-50%);
+
+#profileMessageBox,
+#userPopUpMenu {
+  /* message box for error messages and showing password strength*/
+  background-color: #e6e6e6;
+  min-height: 100px;
+  width: 300px;
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+#userPopUpMenu {
+  top: 50%;
+  transform: translate(-50%, -70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#userPopUpMenu button {
+  background-color: #638ce4;
+  color: red;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 20px;
+  width: 80px;
+  cursor: pointer;
+}
+#closeBtn {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#followersInfo span:hover ,#followingInfo span:hover {
+  color: blue;
+  cursor: pointer;
 }
 
 /* styles for showing menu with dimmed forgeround */
-.menuBackground {
+.menuBackground,
+#popUpMenuBackground {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -76,12 +107,11 @@
   cursor: pointer;
 }
 
-.uploadSection input{
+.uploadSection input {
   height: 60px;
   font-size: 30px;
   width: 90%;
 }
-
 
 .uploadSection button:first-of-type {
   width: 300px;
@@ -315,17 +345,25 @@
   background-color: #e91e63;
 }
 
-#createPostButton,#createReelButton,#followButton,#messageButton {
+#createPostButton,
+#createReelButton,
+#followButton,
+#messageButton,
+#unFollowButton {
   height: 50px;
   border-radius: 10px;
   width: 250px;
-  border: #e91e63;
+  border: 2px solid #e91e63;
   font-size: 30px;
   font-weight: bold;
 }
 
-#followButton,#messageButton{
+#followButton,
+#messageButton {
   width: 150px;
+}
+#unFollowButton {
+  background-color: red !important;
 }
 
 #username {
@@ -377,17 +415,46 @@
   line-height: 19px;
 }
 
+/* 
+follower and following list
+*/
+
+#followerDiv img,#followingDiv img{
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+#followerDiv, #followingDiv{
+width: 90%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+}
+
+#followerDiv span, #followingDiv span{
+  font-size: 27px;
+  margin-left: 15px;
+}
+/* 
+follower and following list
+*/
+
+
+
 @media (max-width: 867px) {
   #userInfoBox {
     margin-top: 55px;
     height: 20vh;
     width: 80vw;
   }
-#followButton,#messageButton{
-  width: 100px;
-  font-size: 18px;
-  height: 30px;
-}
+  #followButton,
+  #messageButton,
+  #unFollowButton {
+    width: 100px;
+    font-size: 18px;
+    height: 30px;
+  }
   #bioBox {
     /* border: 2px solid red; */
     width: 312px;
@@ -502,10 +569,11 @@
     /* margin-top: -67px; */
     width: 80vw;
   }
-  #followButton,#messageButton{
-  width: 60px;
-  font-size: 11px;
-  height: 30px;
-}
-  
+  #followButton,
+  #messageButton,
+  #unFollowButton {
+    width: 60px;
+    font-size: 11px;
+    height: 30px;
+  }
 }

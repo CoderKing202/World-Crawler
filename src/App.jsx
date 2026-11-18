@@ -76,7 +76,7 @@ function App() {
             path="forgotPassword"
             element={<ForgotPassword isLogin={isLogin} />}
           />
-          <Route path="/user/:username" key="/user/username" element={<User isLogin={isLogin} />} />
+          <Route path="/user/:username" key="/user/username" element={<User isLogin={isLogin} setLogin={setLogin}/>} />
           <Route key="messages" path="/messages/:username" element={<Messages isLogin={isLogin}/>}/>
         </Routes>
       </Router>
