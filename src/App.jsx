@@ -76,7 +76,8 @@ function App() {
             path="forgotPassword"
             element={<ForgotPassword isLogin={isLogin} />}
           />
-          <Route path="/user/:username" key="/user/username" element={<User isLogin={isLogin} setLogin={setLogin}/>} />
+          <Route path="/user/:username/:contentType?/:contentId?" key="/user/username" element={<User isLogin={isLogin} setLogin={setLogin}/>} />
+          {/* make the contentId and content type parameter optional */}
           <Route key="messages" path="/messages/:username" element={<Messages isLogin={isLogin}/>}/>
         </Routes>
       </Router>

@@ -6,12 +6,14 @@ import FollowerList from "./FollowerList";
 import FollowingList from "./FollowingList";
 import Posts from "./PostsContent";
 import Reels from "./ReelsContent";
+import PopUpContent from "./PopUpContent";
 
 function User({ isLogin, setLogin }) {
   const navigate = useNavigate();
-  const [popUpStatus, setPopStatus] = useState(false);
+  const [popUpStatus, setPopStatus] = useState("");
   const [isFollowing, setIsFollowing] = useState(false);
-  const { username } = useParams();
+  const { username, contentId, contentType } = useParams();
+
   const [userDetails, setUserDetails] = useState({ user: {}, success: false });
   const [popUpDetails, setPopUpDetails] = useState({
     id: "",
@@ -152,6 +154,27 @@ function User({ isLogin, setLogin }) {
   const showFollowingList = () => {
     setPopStatus("followingList");
   };
+
+  useEffect(() => {
+    (async () => {
+      // console.log(contentId,contentType)
+      if (contentId && contentType) {
+        const response = await fetch(
+          `http://localhost:5000/upload/getContentDetail?contentId=${contentId}&contentType=${contentType}&username=${username}`,
+        );
+        const result = await response.json();
+        console.log(result);
+        if (result.success) {
+          setPopUpDetails({
+            id: contentId,
+            type: contentType,
+            caption: result.post.caption,
+          });
+        }
+      }
+    })();
+  }, []);
+
   return (
     <>
       {popUpDetails.id !== "" ? (
@@ -172,10 +195,13 @@ function User({ isLogin, setLogin }) {
               <button onClick={login}>Login</button>
             )}
             {popUpStatus === "followerList" && (
-              <FollowerList userDetails={userDetails} />
+              <FollowerList userDetails={userDetails} closePopUp={closePopUp} />
             )}
             {popUpStatus === "followingList" && (
-              <FollowingList userDetails={userDetails} />
+              <FollowingList
+                userDetails={userDetails}
+                closePopUp={closePopUp}
+              />
             )}
           </div>
         </div>

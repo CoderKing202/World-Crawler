@@ -7,6 +7,8 @@
 #userPopUpMenu {
   /* message box for error messages and showing password strength*/
   background-color: #e6e6e6;
+  display: flex;
+  
   min-height: 100px;
   width: 300px;
   position: absolute;
@@ -14,22 +16,28 @@
   top: 10px;
   left: 50%;
   transform: translate(-50%);
+  
 }
 #userPopUpMenu {
   top: 50%;
   transform: translate(-50%, -70%);
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  flex-direction: column;
   align-items: center;
+  height: 300px;
+  overflow: auto;
 }
 #userPopUpMenu button {
   background-color: #638ce4;
   color: red;
   border-radius: 5px;
-  height: 30px;
-  font-size: 20px;
-  width: 80px;
+  height: 60px;
+  font-size: 30px;
+  width: 120px;
   cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 #closeBtn {
   height: 20px;
@@ -415,30 +423,33 @@
   line-height: 19px;
 }
 
-/* 
-follower and following list
-*/
+/* follower and following list*/
 
 #followerDiv img,#followingDiv img{
   height: 60px;
   width: 60px;
   border-radius: 50%;
+  cursor: pointer;
 }
+
+#followerDiv span,#followingDiv span{
+  cursor: pointer;
+}
+
 #followerDiv, #followingDiv{
 width: 90%;
 display: flex;
 flex-direction: row;
 align-items: center;
 justify-content: center;
+margin-top: 10px;
 }
 
 #followerDiv span, #followingDiv span{
   font-size: 27px;
   margin-left: 15px;
 }
-/* 
-follower and following list
-*/
+/* follower and following list */
 
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState , useCallback} from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import profileStyles from "../styles/profileStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,20 @@ import UploadReelSection from "./uploadsComponents/UploadReelSection";
 import UpdateProfile from "./UpdateProfile";
 import Posts from "./PostsContent";
 import Reels from "./ReelsContent";
-
 import PopUpContent from "./PopUpContent";
+import FollowerList from "./FollowerList";
+import FollowingList from "./FollowingList";
 
 function Profile() {
-
   const navigate = useNavigate();
   const [tab, setTab] = useState("posts");
+  const [popUpStatus, setPopStatus] = useState("");
+   const showFollowerList = () => {
+    setPopStatus("followerList");
+  };
+  const showFollowingList = () => {
+    setPopStatus("followingList");
+  };
   const [popUpDetails, setPopUpDetails] = useState({
     id: "",
     type: "",
@@ -35,7 +42,6 @@ function Profile() {
   const closePanel = () => {
     setMenu("");
   };
-  
 
   useEffect(() => {
     (async () => {
@@ -75,6 +81,7 @@ function Profile() {
     });
   };
   const closePopUp = () => {
+    setPopStatus("")
     setPopUpDetails({
       id: "",
       type: "",
@@ -89,6 +96,26 @@ function Profile() {
       ) : (
         <></>
       )}
+       {popUpStatus ? (
+              <div id={profileStyles.popUpMenuBackground}>
+                <div id={profileStyles.userPopUpMenu}>
+                  <img
+                    onClick={closePopUp}
+                    src="/World-Crawler/closeBtn.png"
+                    alt="Close button"
+                    id={profileStyles.closeBtn}
+                  />
+                  {popUpStatus === "followerList" && (
+                    <FollowerList userDetails={userDetails} closePopUp={closePopUp}/>
+                  )}
+                  {popUpStatus === "followingList" && (
+                    <FollowingList userDetails={userDetails} closePopUp={closePopUp}/>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
       <div
         id={profileStyles.userContent}
         style={
@@ -228,10 +255,12 @@ function Profile() {
                 </div>
                 <div id={profileStyles.followInfo}>
                   <div id={profileStyles.followersInfo}>
-                    {userDetails.user.no_of_followers} Followers
+                    {userDetails.user.no_of_followers}
+                    <span onClick={showFollowerList}> Followers</span>
                   </div>
                   <div id={profileStyles.followingInfo}>
-                    {userDetails.user.no_of_following} Following
+                    {userDetails.user.no_of_following}
+                    <span onClick={showFollowingList}> Following</span>
                   </div>
                 </div>
               </div>

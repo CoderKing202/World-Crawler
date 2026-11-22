@@ -1,11 +1,13 @@
-import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import style from "../styles/uploadedContents.module.css";
+import { useNavigate } from "react-router-dom";
 
 function ReelsContent({ userDetails, openPopUp }) {
+  const navigate = useNavigate()
   const hasMoreRef = useRef(false);
   const [page, setPage] = useState(1);
   const loadingRef = useRef(true);
+  const isLoggedOut = useRef(false);
   const [contents, setContents] = useState([]);
   const [subArrayLength, setSubArrayLength] = useState(0);
   const detectorCallback = useCallback((loaderElement) => {
@@ -37,7 +39,7 @@ function ReelsContent({ userDetails, openPopUp }) {
     // console.log(result)
     return result;
   };
-   const unParseContents = (parsedContent) => {
+  const unParseContents = (parsedContent) => {
     let unParsedContent = [];
     for (let contents of parsedContent) {
       unParsedContent.push(...contents);
@@ -45,40 +47,62 @@ function ReelsContent({ userDetails, openPopUp }) {
     // console.log(unParsedContent, page)
     return unParsedContent;
   };
-  const loadReels = async ()=>{
-     const response = await fetch(
+  const loadReels = async (type) => {
+    let response;
+    if ((type = "newBegginings")) {
+      response = await fetch(
+        `http://localhost:5000/upload/getContentsDetails/reel/${userDetails.user.username}?page=1`,
+        {
+          credentials: "include",
+        },
+      );
+    } else {
+      response = await fetch(
         `http://localhost:5000/upload/getContentsDetails/reel/${userDetails.user.username}?page=${page}`,
         {
           credentials: "include",
         },
       );
-      // console.log(page)
-      const result = await response.json();
+    }
+    // console.log(page)
+    const result = await response.json();
+    // console.log(result);
+    if (result.success) {
+      // console.log(parseContents(result.contents));
+      // let contents = result.contentDetails.map((content) => {
+      //   // console.log(content)
+      //   return content.mediaUrl;
+      // });
+
+      loadingRef.current = false;
+      hasMoreRef.current = result.hasMore;
+      isLoggedOut.current = result.isLoggedOut;
+      // console.log(result.hasMore, "Hello");
       // console.log(result);
-      if (result.success) {
-        // console.log(parseContents(result.contents));
-        // let contents = result.contentDetails.map((content) => {
-        //   // console.log(content)
-        //   return content.mediaUrl;
-        // });
-        
-        loadingRef.current = false;
-        hasMoreRef.current = result.hasMore;
-        
-
-        setContents(parseContents([...unParseContents(contents),...result.contentDetails]));
-        console.log(parseContents(result.contentDetails))
+      if ((type = "newBegginings")) {
+        setContents(parseContents([...result.contentDetails]));
+      } else {
+        setContents(
+          parseContents([
+            ...unParseContents(contents),
+            ...result.contentDetails,
+          ]),
+        );
       }
-  }
+
+      // console.log(parseContents(result.contentDetails))
+    }
+  };
   useEffect(() => {
-     if(loadingRef.current){
-    loadReels()
-        console.log("Hello")
-     }
-
-
-  }, [userDetails,page]);
-
+    if (loadingRef.current) {
+      loadReels();
+      
+    }
+  }, [page]);
+  useEffect(() => {
+    loadReels("newBegginings");
+    console.log("Hello")
+  }, [userDetails.user.username]);
   return (
     <>
       {contents.map((contentBlock, boxKey) => {
@@ -150,20 +174,39 @@ function ReelsContent({ userDetails, openPopUp }) {
                         style={{
                           flexBasis: `${(1 / subArrayLength) * 100}%`,
                           objectFit: "contain",
+                          flexGrow: 0,
                         }}
                       />
                     ) : (
-                      <></>
+                      isLoggedOut.current && (
+                        <div
+                          className={style.content}
+                          id={style.loadLoginDiv}
+                          style={{
+                            flexBasis: `${(1 / subArrayLength) * 100}%`,
+                            objectFit: "contain",
+                            flexGrow: 0,
+                          }}
+                        >
+                          <button
+                            onClick={() => {
+                              navigate("/login");
+                            }}
+                          >
+                            Login to View More Content
+                          </button>
+                        </div>
+                      )
                     )
                   ) : (
                     <></>
                   )}
-                  {
-                    (()=>{
-                      console.log(boxKey == contents.length - 1 &&
-                  contentKey == contentBlock.length - 1 )
-                    })()
-                  }
+                  {/* {(() => {
+                    console.log(
+                      boxKey == contents.length - 1 &&
+                        contentKey == contentBlock.length - 1,
+                    );
+                  })()} */}
                 </>
               );
             })}

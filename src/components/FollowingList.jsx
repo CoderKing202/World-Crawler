@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "../styles/profileStyles.module.css";
+import { useNavigate } from "react-router-dom";
 
-function FollowingList({ userDetails }) {
+function FollowingList({ userDetails,closePopUp }) {
+  const navigate = useNavigate()
   const [followingList, setFollowingList] = useState([]);
 
   useEffect(() => {
@@ -16,16 +18,21 @@ function FollowingList({ userDetails }) {
       }
     })();
   }, []);
+  const goToFollowingUserPage= (username)=>{
+    navigate(`/user/${username}`)
+    closePopUp()
+    // click handler to reach a particular follower page
+  }
   return (
     <>
-      {followingList.map((following) => {
+      {followingList.length > 0 ? followingList.map((following) => {
         return (
           <div key={following._id} id={style.followingDiv}>
-            <img src={following.following.profileImage} alt="follower pic" />
-            <span>{following.following.username}</span>
+            <img src={following.following.profileImage} alt="following user pic" onClick={()=>goToFollowingUserPage(following.following.username)}/>
+            <span onClick={()=>goToFollowingUserPage(following.following.username)}>{following.following.username}</span>
           </div>
         );
-      })}
+      }):<span> you are following Nobody</span>}
     </>
   );
 }

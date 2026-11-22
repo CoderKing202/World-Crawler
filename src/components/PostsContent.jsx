@@ -3,7 +3,7 @@ import style from "../styles/uploadedContents.module.css";
 import { useNavigate } from "react-router-dom";
 
 function PostsContent({ userDetails, openPopUp }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const hasMoreRef = useRef(false);
   const [page, setPage] = useState(1);
   const loadingRef = useRef(true);
@@ -47,13 +47,23 @@ function PostsContent({ userDetails, openPopUp }) {
     // console.log(unParsedContent, page)
     return unParsedContent;
   };
-  const loadPosts = async () => {
-    const response = await fetch(
-      `http://localhost:5000/upload/getContentsDetails/post/${userDetails.user.username}?page=${page}`,
-      {
-        credentials: "include",
-      },
-    );
+  const loadPosts = async (type) => {
+    let response;
+    if ((type == "newBegginings")) {
+      response = await fetch(
+        `http://localhost:5000/upload/getContentsDetails/post/${userDetails.user.username}?page=1`,
+        {
+          credentials: "include",
+        },
+      );
+    } else {
+      response = await fetch(
+        `http://localhost:5000/upload/getContentsDetails/post/${userDetails.user.username}?page=${page}`,
+        {
+          credentials: "include",
+        },
+      );
+    }
     // console.log(page)
     const result = await response.json();
     // console.log(result);
@@ -68,20 +78,30 @@ function PostsContent({ userDetails, openPopUp }) {
       hasMoreRef.current = result.hasMore;
       isLoggedOut.current = result.isLoggedOut;
       // console.log(result.hasMore, "Hello");
-      console.log(result)
-      setContents(
-        parseContents([...unParseContents(contents), ...result.contentDetails]),
-      );
+      console.log(result);
+      if ((type == "newBegginings")) {
+        setContents(parseContents([...result.contentDetails]));
+      } else {
+        setContents(
+          parseContents([
+            ...unParseContents(contents),
+            ...result.contentDetails,
+          ]),
+        );
+      }
+
       // console.log(parseContents(result.contentDetails))
     }
   };
   useEffect(() => {
     if (loadingRef.current) {
       loadPosts();
-      console.log("Hello");
     }
-  }, [userDetails, page]);
-
+  }, [page]);
+  useEffect(() => {
+    loadPosts("newBegginings");
+    console.log("Lama")
+  }, [userDetails.user.username]);
   return (
     <>
       {contents.map((contentBlock, boxKey) => {

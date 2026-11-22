@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import style from "../styles/profileStyles.module.css"
+import { useNavigate } from "react-router-dom";
 
-function FollowerList({ userDetails }) {
+function FollowerList({ userDetails, closePopUp }) {
   const [followersList, setFollowersList] = useState([]);
+  const navigate = useNavigate()
   useEffect(() => {
     (async () => {
       const response = await fetch(
@@ -15,16 +17,21 @@ function FollowerList({ userDetails }) {
       }
     })();
   }, []);
+  const goToFollowerPage= (username)=>{
+    navigate(`/user/${username}`)
+    closePopUp()
+    // click handler to reach a particular follower page
+  }
   return (
     <>
-      {followersList.map((follower) => {
+      {followersList.length > 0?followersList.map((follower) => {
         return (
           <div key={follower._id} id={style.followerDiv}>
-            <img src={follower.follower.profileImage} alt="follower pic" />
-            <span>{follower.follower.username}</span>
+            <img src={follower.follower.profileImage} alt="follower pic" onClick={()=>goToFollowerPage(follower.follower.username)} />
+            <span onClick={()=>goToFollowerPage(follower.follower.username)}>{follower.follower.username}</span>
           </div>
         );
-      })}
+      }):<span>No Followers</span>}
     </>
   );
 }
