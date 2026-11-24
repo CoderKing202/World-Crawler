@@ -21,7 +21,7 @@ function Conversations({username}) {
       //console.log(result)
       if (result.success) {
         setConversationList(result.receivers);
-        //console.log(result.receivers)
+        console.log(result.receivers)
       }
     })();
   }, []);

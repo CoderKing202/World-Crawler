@@ -128,7 +128,15 @@ function User({ isLogin, setLogin }) {
         setLogin(isLoginResult.isLogin);
         if (isLoginResult.isLogin) {
           if (isLoginResult.username === username) {
-            navigate("/profile");
+            if (
+              (contentType === "image" || contentId === "video") &&
+              contentId
+            ) {
+              navigate(`/profile/${contentType}/${contentId}`);
+            }
+            else{
+              navigate(`/profile`);
+            }
           }
         }
       }
@@ -178,7 +186,7 @@ function User({ isLogin, setLogin }) {
   return (
     <>
       {popUpDetails.id !== "" ? (
-        <PopUpContent popUpDetails={popUpDetails} closePopUp={closePopUp} />
+        <PopUpContent popUpDetails={popUpDetails} closePopUp={closePopUp} username={userDetails.user.username} />
       ) : (
         <></>
       )}

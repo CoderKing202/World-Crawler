@@ -50,13 +50,12 @@ function Reels() {
           `reel${currentReelIndex.current}`,
         );
         // console.log("Current index:", currentReelIndex.current);
-            const prevVideo = videoRefs.current.get(
-          `reel${currentReelIndex.current - 1}`,
-        ) || videoRefs.current.get(
-          `reel0`)
-          console.log(prevVideo)
-        prevVideo.muted = true
-       
+        const prevVideo =
+          videoRefs.current.get(`reel${currentReelIndex.current - 1}`) ||
+          videoRefs.current.get(`reel0`);
+        console.log(prevVideo);
+        prevVideo.muted = true;
+
         if (currentReelIndex.current >= reelsRef.current.length - 1) {
           console.log("Hello");
           loadingRef.current = true;
@@ -71,15 +70,14 @@ function Reels() {
         const currentVideo = videoRefs.current.get(
           `reel${currentReelIndex.current}`,
         );
-        
-         if(currentVideo.muted){
-          currentVideo.muted = false
+
+        if (currentVideo.muted) {
+          currentVideo.muted = false;
         }
         if (!currentVideo.paused) {
           currentVideo.currentTime = 0;
           currentVideo.play();
         }
-
       }
       // console.log(currentReelIndex.current);
       // console.log(reelsRef.current);
@@ -230,6 +228,7 @@ function Reels() {
                 }}
                 setIsLoginLike={setIsLoginLike}
                 mediaSrc={reel.mediaUrl}
+                username={reel.author.username}
               />
               <Comment
                 commentBoxStatus={commentBoxStatus}
@@ -285,6 +284,7 @@ function Reels() {
               }}
               setIsLoginLike={setIsLoginLike}
               mediaSrc={reel.mediaUrl}
+              username={reel.author.username}
             />
             <Comment
               commentBoxStatus={commentBoxStatus}

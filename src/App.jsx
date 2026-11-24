@@ -49,11 +49,6 @@ function App() {
         <Navbar isLogin={isLogin} setLogin={setLogin} setLoading={setLoading} />
         <Routes>
           <Route key="home" path={`/`} element={<Home isLogin={isLogin} />} />
-          <Route
-            key="profile"
-            path={`/profile`}
-            element={<Profile isLogin={isLogin} />}
-          />
           <Route key="reels" path={`/reels`} element={<Reels />} />
           <Route
             key="chats"
@@ -61,6 +56,7 @@ function App() {
             element={<Chats isLogin={isLogin} />}
           />
           <Route key="search" path={`/search`} element={<Search />} />
+        
           <Route
             key="signUp"
             path={`/signUp`}
@@ -77,6 +73,11 @@ function App() {
             element={<ForgotPassword isLogin={isLogin} />}
           />
           <Route path="/user/:username/:contentType?/:contentId?" key="/user/username" element={<User isLogin={isLogin} setLogin={setLogin}/>} />
+          <Route
+            key="profile"
+            path={`/profile/:contentType?/:contentId?`}
+            element={<Profile isLogin={isLogin} />}
+          />
           {/* make the contentId and content type parameter optional */}
           <Route key="messages" path="/messages/:username" element={<Messages isLogin={isLogin}/>}/>
         </Routes>

@@ -16,7 +16,7 @@ function Profile() {
   const navigate = useNavigate();
   const [tab, setTab] = useState("posts");
   const [popUpStatus, setPopStatus] = useState("");
-   const showFollowerList = () => {
+  const showFollowerList = () => {
     setPopStatus("followerList");
   };
   const showFollowingList = () => {
@@ -29,13 +29,14 @@ function Profile() {
   });
   // making states to handle content file object
   const [menu, setMenu] = useState({ type: "", tab: "" });
-  const [username, setUserName] = useState("");
+  // const [username, setUserName] = useState("");
   const [userDetails, setUserDetails] = useState({ user: {}, success: false });
   const [trigger, activateTrigger] = useState(true);
+  const { contentId, contentType } = useParams();
   //console.log(username);
-  const message = () => {
-    navigate(`/messages/${username}`);
-  };
+  // const message = () => {
+  //   navigate(`/messages/${username}`);
+  // };
   const openOperationWindow = (option, tab = "image") => {
     setMenu({ type: option, tab });
   };
@@ -70,6 +71,30 @@ function Profile() {
       //console.log(result.user.profileImage)
     })();
   }, [trigger]);
+  useEffect(() => {
+    console.log(userDetails);
+    if (!userDetails.user.username) {
+      return;
+    }
+    (async () => {
+      console.log(contentId, contentType);
+      if (contentId && contentType) {
+        const response = await fetch(
+          `http://localhost:5000/upload/getContentDetail?contentId=${contentId}&contentType=${contentType}&username=${userDetails.user.username}`,
+        );
+        const result = await response.json();
+        console.log(result);
+        if (result.success) {
+          setPopUpDetails({
+            id: contentId,
+            type: contentType,
+            caption: result.post.caption,
+          });
+        }
+      }
+    })();
+  }, [userDetails.user.username]);
+
   //console.log(
   //   new URL("http:/localhost:5000/media/image/123", location.href).href,
   // );
@@ -81,7 +106,7 @@ function Profile() {
     });
   };
   const closePopUp = () => {
-    setPopStatus("")
+    setPopStatus("");
     setPopUpDetails({
       id: "",
       type: "",
@@ -92,30 +117,33 @@ function Profile() {
   return (
     <>
       {popUpDetails.id !== "" ? (
-        <PopUpContent popUpDetails={popUpDetails} closePopUp={closePopUp} />
+        <PopUpContent popUpDetails={popUpDetails} closePopUp={closePopUp} username={userDetails.user.username}/>
       ) : (
         <></>
       )}
-       {popUpStatus ? (
-              <div id={profileStyles.popUpMenuBackground}>
-                <div id={profileStyles.userPopUpMenu}>
-                  <img
-                    onClick={closePopUp}
-                    src="/World-Crawler/closeBtn.png"
-                    alt="Close button"
-                    id={profileStyles.closeBtn}
-                  />
-                  {popUpStatus === "followerList" && (
-                    <FollowerList userDetails={userDetails} closePopUp={closePopUp}/>
-                  )}
-                  {popUpStatus === "followingList" && (
-                    <FollowingList userDetails={userDetails} closePopUp={closePopUp}/>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <></>
+      {popUpStatus ? (
+        <div id={profileStyles.popUpMenuBackground}>
+          <div id={profileStyles.userPopUpMenu}>
+            <img
+              onClick={closePopUp}
+              src="/World-Crawler/closeBtn.png"
+              alt="Close button"
+              id={profileStyles.closeBtn}
+            />
+            {popUpStatus === "followerList" && (
+              <FollowerList userDetails={userDetails} closePopUp={closePopUp} />
             )}
+            {popUpStatus === "followingList" && (
+              <FollowingList
+                userDetails={userDetails}
+                closePopUp={closePopUp}
+              />
+            )}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
       <div
         id={profileStyles.userContent}
         style={

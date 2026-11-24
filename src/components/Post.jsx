@@ -103,6 +103,7 @@ function Post({ content, fullCaptions, setFullCaptions, index, key }) {
           }}
           setIsLoginLike={setIsLoginLike}
           mediaSrc={content.mediaUrl}
+          username={content.author.username}
         />
         {content.caption.length > 30 ? (
           !fullCaptions[index] ? (

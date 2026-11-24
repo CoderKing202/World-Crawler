@@ -4,7 +4,7 @@ import Comment from "./Comment";
 import Like from "./Like";
 import Share from "./Share";
 
-function PopUpContent({ popUpDetails, closePopUp }) {
+function PopUpContent({ popUpDetails, closePopUp,username }) {
   const [isLoginLike, setIsLoginLike] = useState(false);
   console.log(popUpDetails);
   const [src, setSrc] = useState(
@@ -54,6 +54,7 @@ function PopUpContent({ popUpDetails, closePopUp }) {
             isLoginLike={isLoginLike}
             setIsLoginLike={setIsLoginLike}
             mediaSrc={src}
+            type="popup"
           />
           <Comment
             commentBoxStatus={commentBoxStatus}
@@ -61,6 +62,7 @@ function PopUpContent({ popUpDetails, closePopUp }) {
             setShareBoxStatus={setShareBoxStatus}
             commentStyle={{ right: 0, bottom: 0, contentHeight: 150 }}
             mediaSrc={src}
+            setIsLoginLike={setIsLoginLike}
           />
 
           <Share
@@ -75,6 +77,7 @@ function PopUpContent({ popUpDetails, closePopUp }) {
             }}
             setIsLoginLike={setIsLoginLike}
             mediaSrc={src}
+            username={username}
           />
         </div>
       </div>

@@ -4,7 +4,7 @@ import style from "../styles/uploadedContents.module.css";
 import { useNavigate } from "react-router-dom";
 
 
-function Like({ likeStyle,isLoginLike,setIsLoginLike,mediaSrc }) {
+function Like({ likeStyle,isLoginLike,setIsLoginLike,mediaSrc,type }) {
     const [likeStatus, setLikeStatus] = useState(false);
   const navigate = useNavigate()
   const [isLogin, setLogin] = useState(false);
@@ -114,8 +114,8 @@ function Like({ likeStyle,isLoginLike,setIsLoginLike,mediaSrc }) {
         viewBox="0 0 24 24"
         width="28"
         height="28"
-        fill={likeStatus ? "white" : "none"}
-        stroke="currentColor"
+        fill={likeStatus ? "#fe2c9c" : "none"}
+        stroke={likeStatus ? "#fe2c9c" : type=="popup"?"white":"black"}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"

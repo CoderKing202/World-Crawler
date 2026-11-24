@@ -6,12 +6,12 @@
   cursor: pointer;
 }
 
-#loadLoginDiv{
+#loadLoginDiv {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#loadLoginDiv button{
+#loadLoginDiv button {
   height: 90px;
   font-size: 20px;
   background-color: aqua;
@@ -127,10 +127,30 @@
 
 #comments,
 #shareList,
-#isLoginLikeBox{
+#isLoginLikeBox {
   position: absolute;
   background-color: white;
   z-index: 9;
+}
+
+#loadingBox{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index:3;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#loadingBox span{
+  color: rgb(4, 255, 4);
+}
+
+#loadingBox img{
+  height: 150px;
+  width: 150px;
 }
 
 .commentClose,
@@ -151,8 +171,12 @@
 #commentUserDetail,
 #shareUserDetail {
   display: flex;
-  align-items: center;
 }
+#shareUserDetail .conversationOption {
+  margin-left: auto;
+  cursor: pointer;
+}
+
 
 #commentWidget button,
 #shareWidget button {
@@ -165,15 +189,25 @@
   height: 50px;
   font-size: 25px;
 }
+
+#shareWidget button:disabled{
+  background-color: grey;
+  color: red;
+  border: 1px solid grey;
+}
+
 #commentWidget button {
   flex: 1;
-  
+
   width: 112px;
   font-size: 22px;
 }
 
-#commentsArea,#noLoginCommentArea,
-#shareArea,#noLoginShareArea {
+
+#commentsArea,
+#noLoginCommentArea,
+#shareArea,
+#noLoginShareArea {
   height: 300px;
   font-size: 20px;
   padding: 20px;
@@ -182,12 +216,14 @@
 #shareArea {
   width: 250px;
 }
-#noLoginCommentArea,#noLoginShareArea{
+#noLoginCommentArea,
+#noLoginShareArea {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#noLoginCommentArea button,#noLoginShareArea button{
+#noLoginCommentArea button,
+#noLoginShareArea button {
   height: 40px;
   width: 100px;
   font-size: 25px;

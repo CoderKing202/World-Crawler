@@ -6,6 +6,7 @@ import PopUpContent from "./PopUpContent";
 function Search({ isLogin }) {
   const [contents, setContents] = useState([]);
   const hasMoreRef = useRef(false);
+  const [popUpUsername, setPopUpUsername] = useState("");
   const [page, setPage] = useState(1);
   const loadingRef = useRef(true);
   const [popUpDetails, setPopUpDetails] = useState({
@@ -21,7 +22,6 @@ function Search({ isLogin }) {
     });
   };
   const closePopUp = () => {
-    
     setPopUpDetails({
       id: "",
       type: "",
@@ -112,7 +112,7 @@ function Search({ isLogin }) {
       );
       loadingRef.current = false;
       hasMoreRef.current = result.hasMore;
-      // console.log(result.posts)
+      console.log(result.posts);
       // console.log(hasMoreRef,"hasMoreREf")
       // console.log(parseContents([...unParseContents(contents), ...result.posts]),page);
 
@@ -129,7 +129,11 @@ function Search({ isLogin }) {
   return (
     <>
       {popUpDetails.id !== "" ? (
-        <PopUpContent popUpDetails={popUpDetails} closePopUp={closePopUp} />
+        <PopUpContent
+          popUpDetails={popUpDetails}
+          closePopUp={closePopUp}
+          username={popUpUsername}
+        />
       ) : (
         <></>
       )}
@@ -181,7 +185,7 @@ function Search({ isLogin }) {
               key={contentBox[0].mediaUrl}
             >
               {contentBox.map((content, contentKey) => {
-                 let contentSplit = content.mediaUrl.split("/");
+                let contentSplit = content.mediaUrl.split("/");
                 return (
                   <React.Fragment key={content._id}>
                     {content.mediaType === "image" ? (
@@ -194,6 +198,7 @@ function Search({ isLogin }) {
                         alt="image Post"
                         id={searchStyles.content}
                         onClick={(e) => {
+                          setPopUpUsername(content.author.username);
                           openPopUp(
                             "image",
                             contentSplit[contentSplit.length - 1],
@@ -214,6 +219,7 @@ function Search({ isLogin }) {
                           e.target.pause();
                         }}
                         onClick={(e) => {
+                          setPopUpUsername(content.author.username);
                           openPopUp(
                             "video",
                             contentSplit[contentSplit.length - 1],
